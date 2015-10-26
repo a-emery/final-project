@@ -1,0 +1,47 @@
+// @import 'bourbon';
+// @import 'neat';
+@import '~normalize.css/normalize.css';
+@import '~font-awesome/scss/font-awesome.scss';
+@import 'foundation';
+
+
+body {
+  // font-family: "Poiret One";
+}
+
+
+
+///////////// APP ///////////////
+
+.appHeader {
+  background-image: url('../../public/assets/images/headerBackground.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "Poiret One";
+  height: 300px;
+}
+
+.headerName {
+  float: right;
+  font-size: 4rem;
+  padding-right: 5%;
+  color: white;
+}
+
+///////////// INDEX ///////////////
+
+.indexContainer {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.findATrailForm {
+  margin-top: 20px;
+}
+
+
+///////////// LOGIN ///////////////
+
+.loginForm {
+  margin-top: 100px;
+}
