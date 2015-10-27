@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, History } from 'react-router';
 
 import User from '../models/User';
 import store from '../store';
@@ -11,6 +11,8 @@ const Register = React.createClass({
   propTypes: {
     location: React.PropTypes.object
   },
+
+  mixins: [ History ],
 
   handleLogin(e) {
     e.preventDefault()
@@ -24,18 +26,19 @@ const Register = React.createClass({
 
     user.save()
 
-    // .then(() => {
-    //   return store.getSession().authenticate({sessionToken: user.get('sessionToken')}).then(() => {
-    //     let { location } = this.props;
-    //     if (location.state && location.state.nextPathname) {
-    //       this.history.replaceState(null, location.state.nextPathname);
-    //     } else {
-    //       this.history.replaceState(null, '/');
-    //     }
-    //   });
-    // }, (xhr) => {
-    //   this.setState({ error: xhr.responseJSON.error });
-    // });
+
+    .then(() => {
+      return store.getSession().authenticate({sessionToken: user.get('sessionToken')}).then(() => {
+        let { location } = this.props;
+        if (location.state && location.state.nextPathname) {
+          this.history.replaceState(null, location.state.nextPathname);
+        } else {
+          this.history.replaceState(null, '/');
+        }
+      });
+    }, (xhr) => {
+      this.setState({ error: xhr.responseJSON.error });
+    });
   },
 
   render() {

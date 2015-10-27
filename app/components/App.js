@@ -14,14 +14,6 @@ const App = React.createClass({
     }
   },
 
-  expandHamburger() {
-    $('.mobileLink').addClass('showMobileLink');
-  },
-
-  collapseHamburger() {
-    $('.mobileLink').removeClass('showMobileLink');
-  },
-
   render() {
     return (
       <div>
@@ -34,7 +26,7 @@ const App = React.createClass({
             <li className="name">
               <h1><Link to="/">Home</Link></h1>
             </li>
-            <li className="toggle-topbar menu-icon"><a href="#"><span onClick={this.expandHamburger}>Menu</span></a></li>
+            <li className="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
           </ul>
           <section className="top-bar-section">
             <ul className="right">
@@ -44,11 +36,8 @@ const App = React.createClass({
             </ul>
           </section>
         </nav>
-        <div onClick={this.collapseHamburger}>
 
           {this.props.children}
-
-        </div>
       </div>
     )
   }

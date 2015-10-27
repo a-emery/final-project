@@ -1,4 +1,4 @@
-import Session from './models/User';
+import Session from './models/Session';
 
 let session;
 export default {
