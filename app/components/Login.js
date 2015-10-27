@@ -1,14 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, History } from 'react-router';
+
+import store from '../store';
 
 
 
 const Login = React.createClass({
 
-  handleLogin(e) {
-    e.preventDefault()
-    console.log(this.refs.email.value)
-    console.log(this.refs.password.value)
+  propTypes: {
+    location: React.PropTypes.object
+  },
+
+  mixins: [ History ],
+
+  handleLogin(event) {
+    event.preventDefault()
+
+    let username = this.refs.email.value
+    let password = this.refs.password.value
+
+    let session = store.getSession();
+
+    session.authenticate({username, password}).then((loggedIn) => {
+      if (!loggedIn)
+        return this.setState({ error: true })
+
+      var { location } = this.props
+
+      if (location.state && location.state.nextPathname) {
+        this.history.replaceState(null, location.state.nextPathname)
+      } else {
+        this.history.replaceState(null, '/')
+      }
+    })
   },
 
   render() {

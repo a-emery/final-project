@@ -20,6 +20,7 @@ const Session = Backbone.Model.extend({
       } else if (options.sessionToken) {
         // I'm authenticating with a sessionToken
         var user = new User(options);
+        localStorage.setItem('parse-session-token', options.sessionToken);
         this.set('currentUser', user);
         this.trigger('authenticationSucceeded');
         return user.fetch().then(() => {
@@ -50,6 +51,7 @@ const Session = Backbone.Model.extend({
     },
 
     isAuthenticated() {
+      console.log(this.get('currentUser'));
       return !!this.get('currentUser');
     }
 });

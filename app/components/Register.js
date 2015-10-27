@@ -24,10 +24,7 @@ const Register = React.createClass({
 
     let user = new User({username, password, email, name});
 
-    user.save()
-
-
-    .then(() => {
+    user.save().then(() => {
       return store.getSession().authenticate({sessionToken: user.get('sessionToken')}).then(() => {
         let { location } = this.props;
         if (location.state && location.state.nextPathname) {
