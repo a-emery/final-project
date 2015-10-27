@@ -5,6 +5,7 @@
 @import 'foundation';
 
 
+
 body {
   // font-family: "Poiret One";
 }
@@ -26,6 +27,7 @@ body {
   font-size: 4rem;
   padding-right: 5%;
   color: white;
+  text-transform: uppercase;
 }
 
 ///////////// INDEX ///////////////
@@ -44,4 +46,5 @@ body {
 
 .loginForm {
   margin-top: 100px;
+  text-align: center;
 }

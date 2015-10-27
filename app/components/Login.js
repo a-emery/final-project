@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 
 
@@ -13,18 +14,16 @@ const Login = React.createClass({
   render() {
     return (
       <form className="loginForm" name="loginForm" onSubmit={this.handleLogin}>
+        <h1>Login</h1>
         <div className="row">
-          <div className="small-10 columns">
+          <div className="small-12 medium-4 small-centered columns">
             <div className="row">
-              <div className="small-3 columns">
-                <label htmlFor="email-label" className="right inline">email</label>
-                <label htmlFor="password-label" className="right inline">password</label>
-              </div>
-              <div className="small-9 columns">
+              <div className="small-12 columns">
                 <input type="text" name="loginForm" id="email-label" placeholder="email" ref="email" />
                 <input type="password" name="loginForm" id="password-label" placeholder="password" ref="password" />
               </div>
-                <input type="submit" name="loginForm" className="button right" value="Login"/>
+                <input type="submit" name="loginForm" className="small-12 button" value="Login"/>
+                <p className="newUserTest left">Not a user? <Link to="/register">Register now</Link></p>
             </div>
           </div>
         </div>

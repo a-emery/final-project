@@ -26,7 +26,7 @@ const App = React.createClass({
     return (
       <div>
         <header className="appHeader">
-          <p className="headerName">Trail Con</p>
+          <p className="headerName">Carin</p>
         </header>
 
         <nav className="top-bar" data-topbar role="navigation">
@@ -39,8 +39,8 @@ const App = React.createClass({
           <section className="top-bar-section">
             <ul className="right">
               <li><Link to="/myAccount">My Account</Link></li>
-              {this.state.loggedIn === true && <li><a href="#">Sign Out</a></li>}
-              {this.state.loggedIn === false && <li><Link to="/login">Login</Link></li>}
+              {this.state.loggedIn && <li><a href="#">Sign Out</a></li>}
+              {!this.state.loggedIn && <li><Link to="/login">Login</Link></li>}
             </ul>
           </section>
         </nav>
