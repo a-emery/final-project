@@ -14,7 +14,6 @@ const Session = Backbone.Model.extend({
         }).then((response) => {
           this.set('currentUser', new User(response));
           localStorage.setItem('parse-session-token', response.sessionToken);
-          this.trigger('authenticationSucceeded');
           return true;
         }, () => false);
       } else if (options.sessionToken) {
@@ -22,7 +21,6 @@ const Session = Backbone.Model.extend({
         var user = new User(options);
         localStorage.setItem('parse-session-token', options.sessionToken);
         this.set('currentUser', user);
-        this.trigger('authenticationSucceeded');
         return user.fetch().then(() => {
           this.set('currentUser', user.clone());
           return true;
@@ -46,12 +44,11 @@ const Session = Backbone.Model.extend({
 
     invalidate() {
       localStorage.removeItem('parse-session-token');
-      this.trigger('invalidationSucceeded');
+      this.set('currentUser', null);
       window.location.reload();
     },
 
     isAuthenticated() {
-      console.log(this.get('currentUser'));
       return !!this.get('currentUser');
     }
 });

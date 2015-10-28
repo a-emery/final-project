@@ -13,6 +13,12 @@ const Login = React.createClass({
 
   mixins: [ History ],
 
+  getInitialState() {
+    return {
+      error: false
+    }
+  },
+
   handleLogin(event) {
     event.preventDefault()
 
@@ -45,6 +51,8 @@ const Login = React.createClass({
               <div className="small-12 columns">
                 <input type="text" name="loginForm" id="email-label" placeholder="email" ref="email" />
                 <input type="password" name="loginForm" id="password-label" placeholder="password" ref="password" />
+                {this.state.error &&
+                <p>{this.state.error}</p>}
               </div>
                 <input type="submit" name="loginForm" className="small-12 button" value="Login"/>
                 <p className="newUserTest left">Not a user? <Link to="/register">Register now</Link></p>

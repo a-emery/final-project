@@ -10,12 +10,6 @@ const App = React.createClass({
       children: React.PropTypes.object
   },
 
-  getInitialState() {
-    return {
-      loggedIn: !!window.session.get('currentUser')
-    }
-  },
-
   componentWillMount() {
     store.getSession().on('change', this.forceUpdate.bind(this, null), this);
   },
@@ -26,11 +20,12 @@ const App = React.createClass({
 
   logout() {
     store.getSession().invalidate();
+    window.location.reload();
   },
 
   render() {
-    console.log(window.session);
-    console.log(store.getSession());
+
+    var loggedIn = store.getSession().isAuthenticated();
     return (
       <div>
         <header className="appHeader">
@@ -47,8 +42,8 @@ const App = React.createClass({
           <section className="top-bar-section">
             <ul className="right">
               <li><Link to="/myAccount">My Account</Link></li>
-              {this.state.loggedIn && <li onClick={this.logout}><a href="#">Sign Out</a></li>}
-              {!this.state.loggedIn && <li><Link to="/login">Login</Link></li>}
+              {loggedIn && <li onClick={this.logout}><a href="#">Sign Out</a></li>}
+              {!loggedIn && <li><Link to="/login">Login</Link></li>}
             </ul>
           </section>
         </nav>

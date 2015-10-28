@@ -14,15 +14,21 @@ const Register = React.createClass({
 
   mixins: [ History ],
 
+  getInitialState() {
+    return {
+      error: false
+    }
+  },
+
   handleLogin(e) {
     e.preventDefault()
 
     let email = this.refs.email.value;
     let username = email;
     let password = this.refs.password.value;
-    let name = this.refs.name.value;
+    let firstname = this.refs.firstname.value;
 
-    let user = new User({username, password, email, name});
+    let user = new User({username, password, email, firstname});
 
     user.save().then(() => {
       return store.getSession().authenticate({sessionToken: user.get('sessionToken')}).then(() => {
@@ -46,9 +52,11 @@ const Register = React.createClass({
           <div className="small-12 medium-4 small-centered columns">
             <div className="row">
               <div className="small-12 columns">
-                <input type="text" name="registerForm" id="name-label" placeholder="name" ref="name" />
+                <input type="text" name="registerForm" id="name-label" placeholder="first name" ref="firstname" />
                 <input type="text" name="registerForm" id="email-label" placeholder="email" ref="email" />
                 <input type="text" name="registerForm" id="password-label" placeholder="password" ref="password" />
+                {this.state.error &&
+                <p>{this.state.error}</p>}
               </div>
                 <input type="submit" name="registerForm" className="small-12 button" value="Register"/>
             </div>

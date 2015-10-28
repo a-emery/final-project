@@ -1,4 +1,4 @@
 import store from '../store';
 
-window.session = store.getSession();
+let session = store.getSession();
 session.restore();
