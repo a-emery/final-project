@@ -8,6 +8,9 @@ $.ajaxSetup({
       if(localStorage.getItem('parse-session-token')) {
         xhr.setRequestHeader('X-Parse-Session-Token', localStorage.getItem('parse-session-token'));
       }
+    };
+    if(options.url.match(/outdoor-data-api.herokuapp.com/)) {
+      xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     }
   }
 });

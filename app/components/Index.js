@@ -1,11 +1,35 @@
 import React from 'react';
 
-const App = React.createClass({
+import TrailCollection from '../models/trailCollection';
+import store from '../store';
+
+const Index = React.createClass({
+
+  getInitialState() {
+    return {
+      trails: store.getTrailCollection()
+    }
+  },
+
+  componentWillMount() {
+    this.state.trails.on('change', this.forceUpdate.bind(this, null), this);
+  },
+
+  componentWillUnmount() {
+    this.state.trails.off('change', null, this);
+  },
 
   handleTrailSearch(e) {
     e.preventDefault();
-    console.log(this.refs.city.value)
-    console.log(this.refs.state.value)
+    this.state.trails = store.getTrailCollection([], this.refs.city.value, this.refs.state.value);
+    this.state.trails.fetch().then(
+      ()=> {
+        this.setState({
+          trails: this.state.trails
+        })
+      }
+    )
+
   },
 
   render() {
@@ -83,9 +107,12 @@ const App = React.createClass({
               </div>
             </div>
           </form>
+          <div>
+            {this.state.trails && this.state.trails.toJSON().map((t) => <p key={t.unique_id}>{t.city}</p>)}
+          </div>
       </div>
     )
   }
 })
 
-export default App
+export default Index

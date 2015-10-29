@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 
-import App from './components/App';
-import Index from './components/Index';
-import Login from './components/Login';
-import MyAccount from './components/MyAccount';
-import Register from './components/Register';
+import App from './components/app';
+import Index from './components/index';
+import Login from './components/login';
+import MyAccount from './components/myAccount';
+import Register from './components/register';
 
 ReactDOM.render((
   <Router>
