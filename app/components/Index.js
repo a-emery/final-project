@@ -109,7 +109,7 @@ const Index = React.createClass({
             </div>
           </form>
           <div>
-            {this.state.trails && this.state.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
+            {this.state.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
           </div>
       </div>
     )

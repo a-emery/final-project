@@ -47,8 +47,9 @@ const App = React.createClass({
             </ul>
           </section>
         </nav>
-
+        <div>
           {this.props.children}
+        </div>
       </div>
     )
   }
