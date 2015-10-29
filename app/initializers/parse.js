@@ -9,8 +9,9 @@ $.ajaxSetup({
         xhr.setRequestHeader('X-Parse-Session-Token', localStorage.getItem('parse-session-token'));
       }
     };
-    if(options.url.match(/outdoor-data-api.herokuapp.com/)) {
-      xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    if(options.url.match(/trailapi-trailapi.p.mashape.com/)) {
+      xhr.setRequestHeader('X-Mashape-Key', '54lXQ1oTXHmshd3CW3lqEEaJaIt4p1lmHYDjsncC76WrSHS0mp');
+      xhr.setRequestHeader('Accept', 'text/plain');
     }
   }
 });

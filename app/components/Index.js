@@ -2,6 +2,7 @@ import React from 'react';
 
 import TrailCollection from '../models/trailCollection';
 import store from '../store';
+import IndexTrail from '../components/indexTrail';
 
 const Index = React.createClass({
 
@@ -108,7 +109,7 @@ const Index = React.createClass({
             </div>
           </form>
           <div>
-            {this.state.trails && this.state.trails.toJSON().map((t) => <p key={t.unique_id}>{t.city}</p>)}
+            {this.state.trails && this.state.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
           </div>
       </div>
     )
