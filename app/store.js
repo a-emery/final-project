@@ -6,6 +6,7 @@ import Trail from './models/trail';
 
 let session;
 var trails = new TrailCollection();
+var trail = new Trail();
 export default {
   getSession() {
     return (session = session || new Session());
@@ -15,10 +16,7 @@ export default {
     return (trails)
   },
 
-  getTrail(model, id) {
-    return (new Trail(model, {id: id}))
+  getTrail() {
+    return (trail)
   }
 }
-
-
-// encodeURIComponent

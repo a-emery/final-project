@@ -1,4 +1,4 @@
-// @import 'bourbon';
+@import 'bourbon';
 // @import 'neat';
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome.scss';
@@ -10,9 +10,6 @@ body {
   // font-family: "Poiret One";
 }
 
-
-$topbar-bg-color: green;
-$topbar-bg: $topbar-bg-color;
 
 ///////////// APP ///////////////
 
@@ -59,4 +56,40 @@ $topbar-bg: $topbar-bg-color;
 .loginForm {
   margin-top: 100px;
   text-align: center;
+}
+
+///////////// TRAIL VIEW ///////////////
+
+.trailViewTrailContainer {
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.trailViewTrailInfoContainer {
+  @include clearfix;
+}
+
+.trailViewTrailName {
+  width: 65%;
+  padding: 5px;
+  float: left;
+  display: inline-block;
+}
+
+.trailViewTrailName p {
+  margin-bottom: 3px;
+}
+
+.trailViewConditionsRating {
+  padding: 5px;
+  width: 35%;
+  float: right;
+  display: inline-block;
+  text-align: right;
+
+}
+
+.trailViewConditionsRating p {
+  margin-bottom: 0;
 }

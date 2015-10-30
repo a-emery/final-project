@@ -13,12 +13,18 @@ const IndexTrail = React.createClass({
   render() {
 
     return (
-      <div className="indexTrailContainer small-10 columns">
-        <div className="small-5 columns">
-          <h3>{this.props.name}</h3>
-          <p>{this.props.city}, {this.props.state}</p>
+      <div className="trailViewTrailContainer">
+        <div className="trailViewTrailInfoContainer">
+          <div className="trailViewTrailName">
+            <h3>{this.props.name}</h3>
+            <p>{this.props.city}, {this.props.state}</p>
+            <p>Current Rating: 4/5</p>
+          </div>
+          <div className="trailViewConditionsRating">
+            <button>Favorite</button>
+          </div>
         </div>
-        <div className="small-5 columns right">
+        <div>
           <img src={this.props.activities[0].thumbnail} alt="" />
         </div>
       </div>

@@ -10,45 +10,31 @@ const ShowTrail = React.createClass({
     name: React.PropTypes.string,
     city: React.PropTypes.string,
     state: React.PropTypes.string,
-    params: React.PropTypes.object
+    params: React.PropTypes.object,
+    trail: React.PropTypes.object
   },
 
-  getInitialState() {
+  getDefaultProps() {
     return {
-      trail: store.getTrail([], this.props.params.id)
+      trail: store.getTrail()
     }
   },
 
   componentWillMount() {
-    this.state.trail.on('change', this.forceUpdate.bind(this, null), this);
+    this.props.trail.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.trail.setTrail(this.props.params.id);
+    this.props.trail.fetch();
   },
 
   componentWillUnmount() {
-    this.state.trail.off('change', null, this);
+    this.props.trail.off('add remove change', null, this);
   },
 
 
   render() {
-
-    // this.state.trail.fetch().then(() => {
-    //   setState({
-    //     trail: this.state.trail.toJSON()
-    //   })
-    // });
-
-    window.trail = this.state.trail
-    this.state.trail.fetch().then(() => {
-      this.setState({
-        trail: this.state.trail
-      })
-    });
-
-    console.log(this.props)
-
-
     return (
       <div>
-        {this.state.trail.toJSON().map((t)=> <TrailView key={t.unique_id} {...t}/>)}
+        {this.props.trail.toJSON().map((t)=> <TrailView key={t.unique_id} {...t}/>)}
 
 
       </div>
