@@ -6,31 +6,29 @@ import IndexTrail from '../components/indexTrail';
 
 const Index = React.createClass({
 
-  getInitialState() {
+  propTypes: {
+    trails: React.PropTypes.object
+  },
+
+  getDefaultProps() {
     return {
       trails: store.getTrailCollection()
     }
   },
 
   componentWillMount() {
-    this.state.trails.on('change', this.forceUpdate.bind(this, null), this);
+    this.props.trails.on('add remove change', this.forceUpdate.bind(this, null), this);
   },
 
   componentWillUnmount() {
-    this.state.trails.off('change', null, this);
+    this.props.trails.off('add remove change', null, this);
   },
 
-  handleTrailSearch(e) {
-    e.preventDefault();
-    this.state.trails = store.getTrailCollection([], this.refs.city.value, this.refs.state.value);
-    this.state.trails.fetch().then(
-      ()=> {
-        this.setState({
-          trails: this.state.trails
-        })
-      }
-    )
 
+  handleTrailSearch(e) {
+      e.preventDefault()
+      this.props.trails.setLocation(this.refs.city.value, this.refs.state.value);
+      this.props.trails.fetch();
   },
 
   render() {
@@ -109,7 +107,7 @@ const Index = React.createClass({
             </div>
           </form>
           <div>
-            {this.state.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
+            {this.props.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
           </div>
       </div>
     )

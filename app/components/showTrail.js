@@ -43,6 +43,8 @@ const ShowTrail = React.createClass({
       })
     });
 
+    console.log(this.props)
+
 
     return (
       <div>

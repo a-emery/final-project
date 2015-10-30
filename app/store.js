@@ -5,13 +5,14 @@ import Trail from './models/trail';
 
 
 let session;
+var trails = new TrailCollection();
 export default {
   getSession() {
     return (session = session || new Session());
   },
 
-  getTrailCollection(model, city, state) {
-    return (new TrailCollection(model, {city: city, state: state}))
+  getTrailCollection() {
+    return (trails)
   },
 
   getTrail(model, id) {
