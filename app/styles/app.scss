@@ -11,15 +11,17 @@ body {
 }
 
 
+$topbar-bg-color: green;
+$topbar-bg: $topbar-bg-color;
 
 ///////////// APP ///////////////
 
 .appHeader {
-  background-image: url('../../public/assets/images/headerBackground.jpeg');
+  background-image: url('../../public/assets/images/headerBackground2.jpeg');
   background-position: center;
   background-repeat: no-repeat;
   font-family: "Poiret One";
-  height: 300px;
+  height: 100vh;
 }
 
 .headerName {
@@ -35,6 +37,7 @@ body {
 .indexContainer {
   text-align: center;
   margin-top: 100px;
+  min-height: 100vh;
 }
 
 .findATrailForm {
@@ -42,7 +45,7 @@ body {
 }
 
 .indexTrailContainer {
-  margin: 0 8.33% 10px 8.33%;
+  margin: 10px 8.33%;
   border: 1px solid #999999;
   border-radius: 5px;
   background: #FAFAFA;

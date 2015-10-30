@@ -50,12 +50,12 @@ const Index = React.createClass({
                   <div className="small-9 columns">
                     <input name="trailForm" type="text" id="city-label" placeholder="city" ref="city" />
                     <select name="trailForm" id="state-label" ref="state">
-                      <option value="select">- Select a State -</option>
+                      <option value="">- Select a State -</option>
                       <option value="Alabama">Alabama</option>
                       <option value="Alaska">Alaska</option>
                       <option value="Arizona">Arizona</option>
                       <option value="Arkansas">Arkansas</option>
-                      <option value="Califonia">California</option>
+                      <option value="California">California</option>
                       <option value="Colorado">Colorado</option>
                       <option value="Connecticut">Connecticut</option>
                       <option value="Delaware">Delaware</option>

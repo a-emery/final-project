@@ -9,7 +9,8 @@ const ShowTrail = React.createClass({
   propTypes: {
     name: React.PropTypes.string,
     city: React.PropTypes.string,
-    state: React.PropTypes.string
+    state: React.PropTypes.string,
+    params: React.PropTypes.object
   },
 
   getInitialState() {
