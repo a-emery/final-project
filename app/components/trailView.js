@@ -60,7 +60,7 @@ const IndexTrail = React.createClass({
                     </div>
                     <div className="small-9 columns">
                       <input type="text" value={this.props.name} readOnly id="trail" />
-                      <input type="number" defaultValue="5" min="1" max="5" id="conditionsRating"/>
+                      <input type="number"clasName="" defaultValue="5" min="1" max="5" id="conditionsRating"/>
                       <textarea placeholder="comments" id="comments" className="trailViewAddTrailTextarea" />
                     </div>
                     <input name="trailForm" className="button right" type="submit" value="Submit Ride" />
