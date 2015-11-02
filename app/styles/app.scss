@@ -7,7 +7,7 @@
 
 
 body {
-  // font-family: "Poiret One";
+  font-family: "Poiret One";
 }
 
 
@@ -24,6 +24,24 @@ body {
 .headerName {
   float: right;
   font-size: 4rem;
+  padding-right: 5%;
+  color: white;
+  text-transform: uppercase;
+}
+
+///////////// NEW APP ///////////////
+
+.nonHomeHeader {
+  background-image: url('../../public/assets/images/headerBackground2.jpeg');
+  background-position: top;
+  background-repeat: no-repeat;
+  font-family: "Poiret One";
+  height: 100px;
+}
+
+.nonHomeHeaderName {
+  float: right;
+  font-size: 3rem;
   padding-right: 5%;
   color: white;
   text-transform: uppercase;
@@ -81,15 +99,30 @@ body {
   margin-bottom: 3px;
 }
 
-.trailViewConditionsRating {
+.trailViewTrailOptions {
   padding: 5px;
   width: 35%;
   float: right;
   display: inline-block;
   text-align: right;
+  @include clearfix;
+  position: relative;
 
 }
 
 .trailViewConditionsRating p {
   margin-bottom: 0;
+}
+
+.trailViewTrailOptionsButton {
+  display: block;
+  margin-bottom: 3px;
+  float: right;
+  clear: both;
+  width: 150px;
+  font-size: .75rem;
+}
+
+.trailViewAddTrailTextarea {
+  resize: none;
 }

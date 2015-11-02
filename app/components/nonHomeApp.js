@@ -29,10 +29,9 @@ const App = React.createClass({
     var loggedIn = store.getSession().isAuthenticated();
     return (
       <div>
-        <header className="appHeader">
-          <p className="headerName">Carin</p>
+        <header className="nonHomeHeader">
+          <p className="nonHomeHeaderName">Carin</p>
         </header>
-
         <Navbar />
         <div>
           {this.props.children}

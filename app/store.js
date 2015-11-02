@@ -7,6 +7,8 @@ import Trail from './models/trail';
 let session;
 var trails = new TrailCollection();
 var trail = new Trail();
+
+
 export default {
   getSession() {
     return (session = session || new Session());
@@ -18,5 +20,5 @@ export default {
 
   getTrail() {
     return (trail)
-  }
+  },
 }

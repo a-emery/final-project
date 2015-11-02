@@ -12,10 +12,10 @@ const TrailView = React.createClass({
 
   render() {
     return (
-      <div className="indexTrailContainer small-10 columns">
-        <Link to={`/trail/${this.props.unique_id}`}><h3>{this.props.name}</h3></Link>
+      <Link to={`/carin/trail/${this.props.unique_id}`}><div className="indexTrailContainer small-10 columns">
+        <h3>{this.props.name}</h3>
         <p>{this.props.city}, {this.props.state}</p>
-      </div>
+      </div></Link>
     )
   }
 });
