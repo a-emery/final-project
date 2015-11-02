@@ -123,6 +123,10 @@ body {
   font-size: .75rem;
 }
 
+.trailViewFormContainer {
+  transition: all .5s ease;
+}
+
 .trailViewAddTrailTextarea {
   resize: none;
 }

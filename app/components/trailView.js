@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import store from '../store';
+import moment from 'moment';
 
 const IndexTrail = React.createClass({
 
@@ -13,7 +14,8 @@ const IndexTrail = React.createClass({
 
   getInitialState() {
     return {
-      isAdding: false
+      isAdding: false,
+      user: store.getSession().get('currentUser')
     }
   },
 
@@ -29,7 +31,41 @@ const IndexTrail = React.createClass({
     }
   },
 
+  handleFavorite(e) {
+    e.preventDefault();
+    console.log({
+      trailId: this.props.unique_id,
+      trailName: this.props.name,
+      user: this.state.user,
+    });
+  },
+
+  handleFavorite(e) {
+    store.favoriteTrail({
+      trailId: this.props.unique_id,
+      trailName: this.props.name,
+      user: this.state.user,
+    })
+  },
+
+
+  // console.log(store.getSession().get('currentUser').toJSON().email);
+
+  handleAddTrail(e) {
+    e.preventDefault();
+    console.log({
+      trailId: this.props.unique_id,
+      condition: this.refs.condition.value,
+      comment: this.refs.comment.value,
+      user: this.state.user.get('objectId')
+    });
+    this.setState({
+      isAdding: false
+    })
+  },
+
   render() {
+    var user = store.getSession().get('currentUser');
 
     return (
       <div className="trailViewTrailContainer">
@@ -40,7 +76,7 @@ const IndexTrail = React.createClass({
             <p>Current Rating: 4/5</p>
           </div>
           <div className="trailViewTrailOptions">
-            <button className="trailViewTrailOptionsButton">Favorite</button>
+            <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>
             {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
             {this.state.isAdding &&
               <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>
@@ -48,9 +84,9 @@ const IndexTrail = React.createClass({
           </div>
         </div>
         {this.state.isAdding &&
-          <div>
+          <div className="trailViewFormContainer">
             <h3>Add a Ride:</h3>
-              <form action="">
+              <form name="addRideForm" onSubmit={this.handleAddTrail}>
                 <div className="small-10 columns">
                   <div className="row">
                     <div className="small-3 columns">
@@ -59,11 +95,11 @@ const IndexTrail = React.createClass({
                       <label htmlFor="comments" className="right inline">comments</label>
                     </div>
                     <div className="small-9 columns">
-                      <input type="text" value={this.props.name} readOnly id="trail" />
-                      <input type="number"clasName="" defaultValue="5" min="1" max="5" id="conditionsRating"/>
-                      <textarea placeholder="comments" id="comments" className="trailViewAddTrailTextarea" />
+                      <input name="addRideForm" type="text" value={this.props.name} readOnly id="trail" ref="trail" />
+                      <input name="addRideForm" type="number"clasName="" defaultValue="5" step="1" min="1" max="5" id="conditionsRating" ref="condition" />
+                      <textarea name="addRideForm" placeholder="comments" id="comments" className="trailViewAddTrailTextarea" ref="comment" />
                     </div>
-                    <input name="trailForm" className="button right" type="submit" value="Submit Ride" />
+                    <input name="addRideForm" className="button right" type="submit" value="Submit Ride" />
                   </div>
                 </div>
               </form>
