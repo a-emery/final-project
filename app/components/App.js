@@ -34,7 +34,7 @@ const App = React.createClass({
         </header>
 
         <Navbar />
-        <div>
+        <div id="search">
           {this.props.children}
         </div>
       </div>

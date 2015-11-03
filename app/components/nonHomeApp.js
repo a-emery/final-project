@@ -32,6 +32,7 @@ const App = React.createClass({
         <header className="nonHomeHeader">
           <p className="nonHomeHeaderName">Carin</p>
         </header>
+        
         <Navbar />
         <div>
           {this.props.children}

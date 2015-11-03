@@ -12,11 +12,27 @@ const IndexTrail = React.createClass({
     activities: React.PropTypes.array
   },
 
+  getDefaultProps() {
+    return {
+      favorite: store.getFavorites(),
+    }
+  },
+
   getInitialState() {
     return {
       isAdding: false,
       user: store.getSession().get('currentUser')
     }
+  },
+
+  componentWillMount() {
+    this.props.favorite.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.favorite.setUser(this.state.user.toJSON().objectId);
+    this.props.favorite.fetch();
+  },
+
+  componentWillUnmount() {
+    this.props.favorite.off('add remove change', null, this);
   },
 
   toggleAddRide() {
@@ -32,24 +48,12 @@ const IndexTrail = React.createClass({
   },
 
   handleFavorite(e) {
-    e.preventDefault();
-    console.log({
-      trailId: this.props.unique_id,
-      trailName: this.props.name,
-      user: this.state.user,
-    });
-  },
-
-  handleFavorite(e) {
     store.favoriteTrail({
       trailId: this.props.unique_id,
       trailName: this.props.name,
       user: this.state.user,
     })
   },
-
-
-  // console.log(store.getSession().get('currentUser').toJSON().email);
 
   handleAddTrail(e) {
     e.preventDefault();

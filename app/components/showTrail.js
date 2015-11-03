@@ -16,7 +16,7 @@ const ShowTrail = React.createClass({
 
   getDefaultProps() {
     return {
-      trail: store.getTrail()
+      trail: store.getTrail(),
     }
   },
 

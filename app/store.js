@@ -31,6 +31,10 @@ export default {
 
   favoriteTrail(comment, options) {
     favorites.create(comment, options);
+  },
+
+  getFavorites() {
+    return (favorites)
   }
 
 }
