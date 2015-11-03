@@ -1,9 +1,11 @@
 import React from 'react';
+import Backbone from 'backbone';
+import _ from 'underscore';
+import moment from 'moment';
+
 import { Link } from 'react-router';
 import store from '../store';
-import moment from 'moment';
-import _ from 'underscore';
-import Backbone from 'backbone';
+import { TodayWeatherCollection, YesterdayWeatherCollection } from '../models/weatherCollection';
 
 const IndexTrail = React.createClass({
 
@@ -29,17 +31,7 @@ const IndexTrail = React.createClass({
 
   componentWillMount() {
     this.props.favorite.on('add remove change', this.forceUpdate.bind(this, null), this);
-    this.props.favorite.setUser(this.state.user.toJSON().objectId);
     this.props.favorite.fetch();
-    if(_.where(this.props.favorite.toJSON(), {trailId: this.props.unique_id}).length > 0){
-      this.setState({
-        isFavorited: true
-      });
-    } else {
-      this.setState({
-        isFavorited: false
-      });
-    }
   },
 
   componentWillUnmount() {
@@ -70,7 +62,12 @@ const IndexTrail = React.createClass({
   },
 
   handleUnfavorite(e) {
-    console.log(e);
+    let favorite = (_.where(this.props.favorite.toJSON(), {trailId: this.props.unique_id}));
+    favorite = (this.props.favorite.get(favorite[0].objectId));
+    favorite.destroy();
+    this.setState({
+      isFavorited: false
+    });
   },
 
   handleAddRide(e) {
@@ -88,6 +85,14 @@ const IndexTrail = React.createClass({
 
   render() {
     var user = store.getSession().get('currentUser');
+    var isFavorited;
+    if(_.where(this.props.favorite.toJSON(), {trailId: this.props.unique_id}).length > 0){
+      isFavorited = true;
+    } else {
+      isFavorited = false;
+    }
+
+    console.log(moment().format('YYYYMMDD'));
 
     return (
       <div className="trailViewTrailContainer">
@@ -96,10 +101,11 @@ const IndexTrail = React.createClass({
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>
             <p>Current Rating: 4/5</p>
+            <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
           </div>
           <div className="trailViewTrailOptions">
-            {this.state.isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
-            {!this.state.isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
+            {isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
+            {!isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
             {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
             {this.state.isAdding &&
               <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>

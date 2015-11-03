@@ -2,24 +2,15 @@ import Backbone from 'backbone';
 import _ from 'underscore';
 import store from '../store';
 
-var Ride = Backbone.Model.extend({
+var Favorite = Backbone.Model.extend({
 
   idAttribute: 'objectId',
-  urlRoot: "https://api.parse.com/1/classes/Ride",
-
-  url: function() {
-    var base = _.result(this, 'urlRoot');
-    if (this.isNew()) return base;
-    var id = this.get(this.idAttribute);
-    return base.replace(/[^\/]$/, '$&/') + encodeURIComponent(id) + "?include=creator";
-  },
 
   defaults() {
     return {
-      trailId: "",
-      conditions: "",
-      comments: "",
-      creator: {}
+      trail: {},
+      creator: {},
+      
     };
   },
 
@@ -39,7 +30,7 @@ var Ride = Backbone.Model.extend({
   },
 
   save() {
-    let currentUser = store.getSession().currentUser;
+    let currentUser = store.getSession().get('currentUser').toJSON();
     if(currentUser) {
       if(this.isNew()) {
         this.set('creator', currentUser);
@@ -52,4 +43,4 @@ var Ride = Backbone.Model.extend({
 
 });
 
-export default Ride;
+export default Favorite;

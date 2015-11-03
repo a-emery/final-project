@@ -3,12 +3,13 @@ import Backbone from 'backbone';
 var TodayWeatherCollection = Backbone.Collection.extend({
 
   url(){
-    return 'http://api.wunderground.com/api/Your_Key/history_' + this.today + '/q/' + this.state + '/San_Francisco.json';
+    return 'http://api.wunderground.com/api/49bc60d4eee16416/history_' + this.today + '/q/' + this.state + '/' + this.city + '.json';
   },
 
-  setLocation(city, state) {
+  setLocation(city, state, today) {
         this.city = city;
         this.state = state;
+        this.today = today;
   },
 
   parse(response) {
@@ -20,14 +21,6 @@ var YesterdayWeatherCollection = Backbone.Collection.extend({
 
   url(){
     return 'https://trailapi-trailapi.p.mashape.com/?q[activities_activity_type_name_eq]=mountain+biking&q[city_cont]=' + this.city + '&q[state_cont]=' + this.state;
-  },
-
-  setLocation() {
-    var now = new Date();
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var yesterday = now.getFullYear()+"-"+(month)+"-"+(day);
-    return yesterday;
   },
 
   parse(response) {

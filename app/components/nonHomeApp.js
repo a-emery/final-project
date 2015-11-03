@@ -11,7 +11,14 @@ const App = React.createClass({
       children: React.PropTypes.object
   },
 
+  getDefaultProps() {
+    return {
+      session: store.getSession()
+    };
+  },
+
   componentWillMount() {
+    // store.getSession().restore();
     store.getSession().on('change', this.forceUpdate.bind(this, null), this);
   },
 
