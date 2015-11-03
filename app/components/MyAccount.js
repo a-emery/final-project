@@ -1,6 +1,8 @@
 import React from 'react';
 import store from '../store';
 import { Link } from 'react-router';
+import _ from 'underscore';
+import backbone from 'backbone';
 
 
 
@@ -9,13 +11,13 @@ const MyAccount = React.createClass({
   getDefaultProps() {
     return {
       favorite: store.getFavorites(),
-    }
+    };
   },
 
   getInitialState() {
     return {
       user: store.getSession().get('currentUser').toJSON(),
-    }
+    };
   },
 
   componentWillMount() {
@@ -30,17 +32,16 @@ const MyAccount = React.createClass({
 
   render() {
     let favorites = this.props.favorite.toJSON();
-    console.log(favorites.length);
 
     return (
       <div>
-        <h1>Welcome, {this.state.user.firstname}</h1>
+        <h1>Welcome {this.state.user.firstname} </h1>
         <h3>Favorite Trails:</h3>
-        {favorites.length === 0 && <Link to="/"><h5>You have yet to add any favorite trails</h5><h5>Add some favorite trails to make your life easier</h5></Link>}
+        {favorites.length === 0 && <Link to="/"><h6>You have yet to add any favorite trails</h6><h6>Add some favorite trails to make your life easier</h6></Link>}
         {favorites.map((t)=><Link key={t.trailId} to={`/carin/trail/${t.trailId}`}><h5>{t.trailName}</h5></Link>)}
       </div>
-    )
+    );
   }
 });
 
-export default MyAccount
+export default MyAccount;

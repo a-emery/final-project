@@ -20,7 +20,7 @@ var Ride = Backbone.Model.extend({
       conditions: "",
       comments: "",
       creator: {}
-    }
+    };
   },
 
   toJSON(options) {
@@ -50,6 +50,6 @@ var Ride = Backbone.Model.extend({
     }
   }
 
-})
+});
 
 export default Ride;

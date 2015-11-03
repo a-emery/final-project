@@ -18,15 +18,15 @@ export default {
   },
 
   getTrailCollection() {
-    return (trails)
+    return (trails);
   },
 
   getTrail() {
-    return (trail)
+    return (trail);
   },
 
   addRide(trailId, userId, conditions, comments) {
-    let ride = new RideCollection(null, {})
+    let ride = new RideCollection(null, {});
   },
 
   favoriteTrail(comment, options) {
@@ -34,7 +34,7 @@ export default {
   },
 
   getFavorites() {
-    return (favorites)
+    return (favorites);
   }
 
-}
+};

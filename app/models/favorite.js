@@ -11,7 +11,7 @@ var Favorite = Backbone.Model.extend({
       trailId: "",
       trailName: "",
       creator: {},
-    }
+    };
   },
 
   toJSON(options) {
@@ -41,6 +41,6 @@ var Favorite = Backbone.Model.extend({
     }
   }
 
-})
+});
 
 export default Favorite;

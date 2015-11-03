@@ -38,8 +38,8 @@ const App = React.createClass({
           {this.props.children}
         </div>
       </div>
-    )
+    );
   }
-})
+});
 
-export default App
+export default App;

@@ -30,8 +30,8 @@ const Navbar = React.createClass({
           </ul>
         </section>
       </nav>
-    )
+    );
   }
 });
 
-export default Navbar
+export default Navbar;

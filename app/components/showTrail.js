@@ -17,7 +17,7 @@ const ShowTrail = React.createClass({
   getDefaultProps() {
     return {
       trail: store.getTrail(),
-    }
+    };
   },
 
   componentWillMount() {
@@ -38,7 +38,7 @@ const ShowTrail = React.createClass({
 
 
       </div>
-    )
+    );
   }
 });
 

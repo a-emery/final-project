@@ -13,7 +13,7 @@ const Index = React.createClass({
   getDefaultProps() {
     return {
       trails: store.getTrailCollection()
-    }
+    };
   },
 
   componentWillMount() {
@@ -26,7 +26,7 @@ const Index = React.createClass({
 
 
   handleTrailSearch(e) {
-      e.preventDefault()
+      e.preventDefault();
       this.props.trails.setLocation(this.refs.city.value, this.refs.state.value);
       this.props.trails.fetch();
   },
@@ -110,8 +110,8 @@ const Index = React.createClass({
             {this.props.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
           </div>
       </div>
-    )
+    );
   }
-})
+});
 
-export default Index
+export default Index;

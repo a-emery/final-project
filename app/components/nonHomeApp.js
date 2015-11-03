@@ -32,14 +32,14 @@ const App = React.createClass({
         <header className="nonHomeHeader">
           <p className="nonHomeHeaderName">Carin</p>
         </header>
-        
+
         <Navbar />
         <div>
           {this.props.children}
         </div>
       </div>
-    )
+    );
   }
-})
+});
 
-export default App
+export default App;

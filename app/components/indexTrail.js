@@ -16,7 +16,7 @@ const TrailView = React.createClass({
         <h3>{this.props.name}</h3>
         <p>{this.props.city}, {this.props.state}</p>
       </div></Link>
-    )
+    );
   }
 });
 

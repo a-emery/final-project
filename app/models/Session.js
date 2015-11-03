@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import $ from 'jquery';
 import Backbone from 'backbone';
 import User from './user';
 

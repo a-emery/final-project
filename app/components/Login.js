@@ -16,35 +16,35 @@ const Login = React.createClass({
   getInitialState() {
     return {
       error: false
-    }
+    };
   },
 
   handleLogin(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    let username = this.refs.email.value
-    let password = this.refs.password.value
+    let username = this.refs.email.value;
+    let password = this.refs.password.value;
 
     let session = store.getSession();
 
     session.authenticate({username, password}).then((loggedIn) => {
       if (!loggedIn)
-        return this.setState({ error: true })
+        return this.setState({ error: true });
 
-      var { location } = this.props
+      var { location } = this.props;
 
       if (location.state && location.state.nextPathname) {
-        this.history.replaceState(null, location.state.nextPathname)
+        this.history.replaceState(null, location.state.nextPathname);
       } else {
-        this.history.replaceState(null, '/')
+        this.history.replaceState(null, '/');
       }
-    })
+    });
   },
 
   render() {
     return (
       <form className="loginForm" name="loginForm" onSubmit={this.handleLogin}>
-        <h1>Login</h1>
+        <h3>Login</h3>
         <div className="row">
           <div className="small-12 medium-4 small-centered columns">
             <div className="row">
@@ -60,8 +60,8 @@ const Login = React.createClass({
           </div>
         </div>
       </form>
-    )
+    );
   }
 });
 
-export default Login
+export default Login;

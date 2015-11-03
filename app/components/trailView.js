@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import store from '../store';
 import moment from 'moment';
+import _ from 'underscore';
+import Backbone from 'backbone';
 
 const IndexTrail = React.createClass({
 
@@ -15,20 +17,29 @@ const IndexTrail = React.createClass({
   getDefaultProps() {
     return {
       favorite: store.getFavorites(),
-    }
+    };
   },
 
   getInitialState() {
     return {
       isAdding: false,
       user: store.getSession().get('currentUser')
-    }
+    };
   },
 
   componentWillMount() {
     this.props.favorite.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.favorite.setUser(this.state.user.toJSON().objectId);
     this.props.favorite.fetch();
+    if(_.where(this.props.favorite.toJSON(), {trailId: this.props.unique_id}).length > 0){
+      this.setState({
+        isFavorited: true
+      });
+    } else {
+      this.setState({
+        isFavorited: false
+      });
+    }
   },
 
   componentWillUnmount() {
@@ -52,10 +63,17 @@ const IndexTrail = React.createClass({
       trailId: this.props.unique_id,
       trailName: this.props.name,
       user: this.state.user,
-    })
+    });
+    this.setState({
+      isFavorited: true
+    });
   },
 
-  handleAddTrail(e) {
+  handleUnfavorite(e) {
+    console.log(e);
+  },
+
+  handleAddRide(e) {
     e.preventDefault();
     console.log({
       trailId: this.props.unique_id,
@@ -65,7 +83,7 @@ const IndexTrail = React.createClass({
     });
     this.setState({
       isAdding: false
-    })
+    });
   },
 
   render() {
@@ -80,7 +98,8 @@ const IndexTrail = React.createClass({
             <p>Current Rating: 4/5</p>
           </div>
           <div className="trailViewTrailOptions">
-            <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>
+            {this.state.isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
+            {!this.state.isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
             {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
             {this.state.isAdding &&
               <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>
@@ -90,7 +109,7 @@ const IndexTrail = React.createClass({
         {this.state.isAdding &&
           <div className="trailViewFormContainer">
             <h3>Add a Ride:</h3>
-              <form name="addRideForm" onSubmit={this.handleAddTrail}>
+              <form name="addRideForm" onSubmit={this.handleAddRide}>
                 <div className="small-10 columns">
                   <div className="row">
                     <div className="small-3 columns">
@@ -113,7 +132,7 @@ const IndexTrail = React.createClass({
           <img src={this.props.activities[0].thumbnail} alt="" />
         </div>
       </div>
-    )
+    );
   }
 });
 

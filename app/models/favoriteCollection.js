@@ -12,7 +12,7 @@ var FavoriteCollection = Backbone.Collection.extend({
         className: "_User",
         objectId: this.user
       }
-    })
+    });
   },
 
   setUser(user) {
@@ -24,6 +24,6 @@ var FavoriteCollection = Backbone.Collection.extend({
   }
 
 
-})
+});
 
 export default FavoriteCollection;

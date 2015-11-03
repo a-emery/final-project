@@ -17,11 +17,11 @@ const Register = React.createClass({
   getInitialState() {
     return {
       error: false
-    }
+    };
   },
 
   handleLogin(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     let email = this.refs.email.value;
     let username = email;
@@ -63,8 +63,8 @@ const Register = React.createClass({
           </div>
         </div>
       </form>
-    )
+    );
   }
 });
 
-export default Register
+export default Register;
