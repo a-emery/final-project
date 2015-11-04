@@ -88,6 +88,17 @@ body {
   @include clearfix;
 }
 
+.temperatureContainer {
+  width: 50%;
+  display: inline-block;
+}
+
+.precipContainer {
+  width: 50%;
+  display: inline-block;
+  text-align: right;
+}
+
 .trailViewTrailName {
   width: 65%;
   padding: 5px;

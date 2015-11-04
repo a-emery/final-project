@@ -14,13 +14,10 @@ var TodayWeatherCollection = Backbone.Collection.extend({
 
   parse(response) {
     // console.log(response.history.dailysummary[0]);
-    if (!!response.history.dailysummary[0]) {
-    return response.history.dailysummary[0];
-  }
+    if (response.history.dailysummary[0]) {
+      return response.history.dailysummary[0];
+    }
   }
 });
 
 export default TodayWeatherCollection;
-
-
-// moment().subtract(1, "days").format("YYYYMMDD")

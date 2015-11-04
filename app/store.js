@@ -7,12 +7,13 @@ import Rides from './models/rideCollection';
 import FavoriteCollection from './models/favoriteCollection';
 import TodayWeatherCollection from './models/todayWeatherCollection';
 import YesterdayWeatherCollection from './models/yesterdayWeatherCollection';
+import TwoDayWeatherCollection from './models/twoDayWeatherCollection';
 
 /*
 WEATHER API
 1: 49bc60d4eee16416
 2: bf1f146c870bfe6a
-
+3: 8f944a40d548965e
 */
 
 
@@ -22,6 +23,7 @@ var trail = new Trail();
 var favorites = new FavoriteCollection();
 var todayWeather = new TodayWeatherCollection();
 var yesterdayWeather = new YesterdayWeatherCollection();
+var twoDayWeather = new TwoDayWeatherCollection();
 
 
 export default {
@@ -57,22 +59,9 @@ export default {
     return (yesterdayWeather);
   },
 
-    // getWeather(date, state, city) {
-    //   console.log(date, state, city);
-    //   return (
-    //     $.ajax({
-    //       url: 'http://api.wunderground.com/api/bf1f146c870bfe6a/history_' + date + '/q/' + state + '/' + city + '.json',
-    //       success: (data) => weather = data.history.dailysummary[0]
-    //     }).then(function(){
-    //       return (weather);
-    //     })
-    //   );
-    // return weather;
-    // console.log(this.weather);
-    // return this.weather;
-    // weather = JSON.parse(weather.responseText);
-    // return weather;
-    // },
+  getTwoDayWeather() {
+    return (twoDayWeather);
+  },
 
   fixCity(city) {
     return city.replace(/ /g, "_");

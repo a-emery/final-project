@@ -6,6 +6,8 @@ import moment from 'moment';
 import { Link } from 'react-router';
 import store from '../store';
 import TodayWeatherCollection from '../models/todayWeatherCollection';
+import YesterdayWeatherCollection from '../models/yesterdayWeatherCollection';
+import TwoDayWeatherCollection from '../models/twoDayWeatherCollection';
 
 const IndexTrail = React.createClass({
 
@@ -19,7 +21,9 @@ const IndexTrail = React.createClass({
   getDefaultProps() {
     return {
       favorite: store.getFavorites(),
-      todayWeather: store.getTodayWeather()
+      todayWeather: store.getTodayWeather(),
+      yesterdayWeather: store.getYesterdayWeather(),
+      twoDayWeather: store.getTwoDayWeather(),
     };
   },
 
@@ -36,11 +40,20 @@ const IndexTrail = React.createClass({
     this.props.todayWeather.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.todayWeather.setTodayLocation(moment().format('YYYYMMDD'), store.getAbbr(this.props.state), store.fixCity(this.props.city));
     this.props.todayWeather.fetch();
+    this.props.yesterdayWeather.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.yesterdayWeather.setYesterdayLocation(moment().subtract(1, "days").format("YYYYMMDD"), store.getAbbr(this.props.state), store.fixCity(this.props.city));
+    this.props.yesterdayWeather.fetch();
+    this.props.twoDayWeather.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.twoDayWeather.setTwoDayLocation(moment().subtract(2, "days").format("YYYYMMDD"), store.getAbbr(this.props.state), store.fixCity(this.props.city));
+    this.props.twoDayWeather.fetch();
   },
 
   componentWillUnmount() {
     this.props.favorite.off('add remove change', null, this);
     this.props.todayWeather.off('add remove change', null, this);
+    this.props.yesterdayWeather.off('add remove change', null, this);
+    this.props.twoDayWeather.off('add remove change', null, this);
+
   },
 
   toggleAddRide() {
@@ -88,11 +101,6 @@ const IndexTrail = React.createClass({
     });
   },
 
-  // getWeather() {
-  //   this.weather = store.getWeather(moment().format('YYYYMMDD'), store.getAbbr(this.props.state), store.fixCity(this.props.city));
-  //   window.weather = this.weather;
-  // },
-
   render() {
     var user = store.getSession().get('currentUser');
     var isFavorited;
@@ -102,15 +110,26 @@ const IndexTrail = React.createClass({
       isFavorited = false;
     }
     var todayWeather = this.props.todayWeather.toJSON()[0];
-    console.log(todayWeather);
+    var yesterdayWeather = this.props.yesterdayWeather.toJSON()[0];
+    var twoDayWeather = this.props.twoDayWeather.toJSON()[0];
 
     return (
       <div className="trailViewTrailContainer">
         <div className="trailViewTrailInfoContainer">
-          {todayWeather &&
+          {todayWeather && yesterdayWeather && twoDayWeather &&
             <div className="weather">
-              <p>High: {todayWeather.maxtempi} Low: {todayWeather.mintempi} Avg: {todayWeather.meantempi}</p>
-              <p>Rain Collection: Today: {todayWeather.precipi}&#34;</p>
+              <div className="temperatureContainer">
+                <h5>Todays Temperature</h5>
+                <p>High: {todayWeather.maxtempi}&#8457; </p>
+                <p>Low: {todayWeather.mintempi}&#8457; </p>
+                <p>Avg: {todayWeather.meantempi}&#8457;</p>
+              </div>
+              <div className="precipContainer">
+                <h5>Precipication Totals</h5>
+                <p>Today: {todayWeather.precipi}&#34; </p>
+                <p>Yesterday: {yesterdayWeather.precipi}&#34; </p>
+                <p>Two-Days Ago: {twoDayWeather.precipi}&#34;</p>
+              </div>
             </div>
           }
           <div className="trailViewTrailName">
