@@ -5,9 +5,6 @@ import moment from 'moment';
 
 import { Link } from 'react-router';
 import store from '../store';
-import TodayWeatherCollection from '../models/todayWeatherCollection';
-import YesterdayWeatherCollection from '../models/yesterdayWeatherCollection';
-import TwoDayWeatherCollection from '../models/twoDayWeatherCollection';
 
 const IndexTrail = React.createClass({
 
@@ -90,11 +87,12 @@ const IndexTrail = React.createClass({
 
   handleAddRide(e) {
     e.preventDefault();
-    console.log({
+    store.addRide({
       trailId: this.props.unique_id,
+      trailName: this.props.name,
       condition: this.refs.condition.value,
       comment: this.refs.comment.value,
-      user: this.state.user.get('objectId')
+      user: this.state.user,
     });
     this.setState({
       isAdding: false
@@ -109,29 +107,23 @@ const IndexTrail = React.createClass({
     } else {
       isFavorited = false;
     }
-    var todayWeather = this.props.todayWeather.toJSON()[0];
-    var yesterdayWeather = this.props.yesterdayWeather.toJSON()[0];
-    var twoDayWeather = this.props.twoDayWeather.toJSON()[0];
+    var todayWeather = this.props.todayWeather.toJSON()[0] || {};
+    var yesterdayWeather = this.props.yesterdayWeather.toJSON()[0] || {};
+    var twoDayWeather = this.props.twoDayWeather.toJSON()[0] || {};
+    var hasWeather;
+    if(this.props.todayWeather && this.props.todayWeather.toJSON() && this.props.todayWeather.toJSON()[0] && this.props.todayWeather.toJSON()[0].precipi) {
+      hasWeather = true;
+    } else {
+      hasWeather = false;
+    }
+    // console.log(hasWeather);
+    // console.log(todayWeather);
+    // console.log(yesterdayWeather);
+    // console.log(twoDayWeather);
 
     return (
       <div className="trailViewTrailContainer">
         <div className="trailViewTrailInfoContainer">
-          {todayWeather && yesterdayWeather && twoDayWeather &&
-            <div className="weather">
-              <div className="temperatureContainer">
-                <h5>Todays Temperature</h5>
-                <p>High: {todayWeather.maxtempi}&#8457; </p>
-                <p>Low: {todayWeather.mintempi}&#8457; </p>
-                <p>Avg: {todayWeather.meantempi}&#8457;</p>
-              </div>
-              <div className="precipContainer">
-                <h5>Precipication Totals</h5>
-                <p>Today: {todayWeather.precipi}&#34; </p>
-                <p>Yesterday: {yesterdayWeather.precipi}&#34; </p>
-                <p>Two-Days Ago: {twoDayWeather.precipi}&#34;</p>
-              </div>
-            </div>
-          }
           <div className="trailViewTrailName">
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>
@@ -147,6 +139,27 @@ const IndexTrail = React.createClass({
             }
           </div>
         </div>
+        {hasWeather &&
+          <div className="weather">
+            <div className="temperatureContainer">
+              <h5>Todays Temperature</h5>
+              <p>High: {todayWeather.maxtempi}&#8457; </p>
+              <p>Low: {todayWeather.mintempi}&#8457; </p>
+              <p>Avg: {todayWeather.meantempi}&#8457;</p>
+            </div>
+            <div className="precipContainer">
+              <h5>Precipication Totals</h5>
+              <p>Today: {todayWeather.precipi}&#34; </p>
+              <p>Yesterday: {yesterdayWeather.precipi}&#34; </p>
+              <p>Two-Days Ago: {twoDayWeather.precipi}&#34;</p>
+            </div>
+          </div>
+        }
+        {!hasWeather &&
+          <div className="weather">
+            <p>Sorry, no weather is available for this location</p>
+          </div>
+        }
         {this.state.isAdding &&
           <div className="trailViewFormContainer">
             <h3>Add a Ride:</h3>
@@ -161,7 +174,7 @@ const IndexTrail = React.createClass({
                     <div className="small-9 columns">
                       <input name="addRideForm" type="text" value={this.props.name} readOnly id="trail" ref="trail" />
                       <input name="addRideForm" type="number"clasName="" defaultValue="5" step="1" min="1" max="5" id="conditionsRating" ref="condition" />
-                      <textarea name="addRideForm" placeholder="comments" id="comments" className="trailViewAddTrailTextarea" ref="comment" />
+                      <textarea name="addRideForm" placeholder="comments (optional)" id="comments" className="trailViewAddTrailTextarea" ref="comment" />
                     </div>
                     <input name="addRideForm" className="button right" type="submit" value="Submit Ride" />
                   </div>

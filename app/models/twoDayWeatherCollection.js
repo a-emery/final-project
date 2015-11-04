@@ -13,8 +13,10 @@ var YesterdayWeatherCollection = Backbone.Collection.extend({
   },
 
   parse(response) {
-    if (response.history.dailysummary[0]) {
+    if (response && response.history && response.history.dailysummary[0]) {
       return response.history.dailysummary[0];
+    } else {
+      return response;
     }
   }
 });

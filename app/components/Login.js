@@ -55,7 +55,7 @@ const Login = React.createClass({
                 <p>{this.state.error}</p>}
               </div>
                 <input type="submit" name="loginForm" className="small-12 button" value="Login"/>
-                <p className="newUserTest left">Not a user? <Link to="/register">Register now</Link></p>
+                <p className="newUserTest left">Not a user? <Link to="/carin/register">Register now</Link></p>
             </div>
           </div>
         </div>

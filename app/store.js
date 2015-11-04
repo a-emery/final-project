@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Session from './models/session';
 import TrailCollection from './models/trailCollection';
 import Trail from './models/trail';
-import Rides from './models/rideCollection';
+import RideCollection from './models/rideCollection';
 import FavoriteCollection from './models/favoriteCollection';
 import TodayWeatherCollection from './models/todayWeatherCollection';
 import YesterdayWeatherCollection from './models/yesterdayWeatherCollection';
@@ -21,6 +21,7 @@ let session;
 var trails = new TrailCollection();
 var trail = new Trail();
 var favorites = new FavoriteCollection();
+var rides = new RideCollection();
 var todayWeather = new TodayWeatherCollection();
 var yesterdayWeather = new YesterdayWeatherCollection();
 var twoDayWeather = new TwoDayWeatherCollection();
@@ -39,8 +40,8 @@ export default {
     return (trail);
   },
 
-  addRide(trailId, userId, conditions, comments) {
-    let ride = new RideCollection(null, {});
+  addRide(comment, options) {
+    rides.create(comment, options);
   },
 
   favoriteTrail(comment, options) {

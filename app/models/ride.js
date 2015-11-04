@@ -2,15 +2,26 @@ import Backbone from 'backbone';
 import _ from 'underscore';
 import store from '../store';
 
-var Favorite = Backbone.Model.extend({
+var Ride = Backbone.Model.extend({
 
   idAttribute: 'objectId',
 
+  urlRoot: "https://api.parse.com/1/classes/Ride",
+
+  url: function() {
+    var base = _.result(this, 'urlRoot');
+    if (this.isNew()) return base;
+    var id = this.get(this.idAttribute);
+    return base.replace(/[^\/]$/, '$&/') + encodeURIComponent(id) + "?include=creator";
+  },
+
   defaults() {
     return {
-      trail: {},
+      trailId: "",
+      trailName: "",
+      condition: "",
+      comment: "",
       creator: {},
-      
     };
   },
 
@@ -24,7 +35,7 @@ var Favorite = Backbone.Model.extend({
           "objectId": this.get('creator').objectId
         }
       });
-    } else { // I'm using toJSON to use with React
+    } else {
       return _.clone(this.attributes);
     }
   },
@@ -43,4 +54,4 @@ var Favorite = Backbone.Model.extend({
 
 });
 
-export default Favorite;
+export default Ride;
