@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { Link } from 'react-router';
 import store from '../store';
-import { TodayWeatherCollection, YesterdayWeatherCollection } from '../models/weatherCollection';
+import TodayWeatherCollection from '../models/todayWeatherCollection';
 
 const IndexTrail = React.createClass({
 
@@ -19,6 +19,7 @@ const IndexTrail = React.createClass({
   getDefaultProps() {
     return {
       favorite: store.getFavorites(),
+      todayWeather: store.getTodayWeather()
     };
   },
 
@@ -32,10 +33,14 @@ const IndexTrail = React.createClass({
   componentWillMount() {
     this.props.favorite.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.favorite.fetch();
+    this.props.todayWeather.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.todayWeather.setTodayLocation(moment().format('YYYYMMDD'), store.getAbbr(this.props.state), store.fixCity(this.props.city));
+    this.props.todayWeather.fetch();
   },
 
   componentWillUnmount() {
     this.props.favorite.off('add remove change', null, this);
+    this.props.todayWeather.off('add remove change', null, this);
   },
 
   toggleAddRide() {
@@ -83,6 +88,11 @@ const IndexTrail = React.createClass({
     });
   },
 
+  // getWeather() {
+  //   this.weather = store.getWeather(moment().format('YYYYMMDD'), store.getAbbr(this.props.state), store.fixCity(this.props.city));
+  //   window.weather = this.weather;
+  // },
+
   render() {
     var user = store.getSession().get('currentUser');
     var isFavorited;
@@ -91,12 +101,18 @@ const IndexTrail = React.createClass({
     } else {
       isFavorited = false;
     }
-
-    console.log(moment().format('YYYYMMDD'));
+    var todayWeather = this.props.todayWeather.toJSON()[0];
+    console.log(todayWeather);
 
     return (
       <div className="trailViewTrailContainer">
         <div className="trailViewTrailInfoContainer">
+          {todayWeather &&
+            <div className="weather">
+              <p>High: {todayWeather.maxtempi} Low: {todayWeather.mintempi} Avg: {todayWeather.meantempi}</p>
+              <p>Rain Collection: Today: {todayWeather.precipi}&#34;</p>
+            </div>
+          }
           <div className="trailViewTrailName">
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>

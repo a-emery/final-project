@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import TrailCollection from '../models/trailCollection';
 import store from '../store';
@@ -12,7 +13,7 @@ const Index = React.createClass({
 
   getDefaultProps() {
     return {
-      trails: store.getTrailCollection()
+      trails: store.getTrailCollection(),
     };
   },
 
@@ -27,9 +28,9 @@ const Index = React.createClass({
 
   handleTrailSearch(e) {
       e.preventDefault();
-      console.log(this.refs.state.value.slice(0,2));
-      console.log(this.refs.state.value.substr(2));
-      this.props.trails.setLocation(this.refs.city.value, this.refs.state.value.slice(0,2));
+      // console.log(this.refs.state.value.slice(0,2));
+      // console.log(this.refs.state.value.substr(2));
+      this.props.trails.setLocation(this.refs.city.value, this.refs.state.value.substr(2));
       this.props.trails.fetch();
   },
 
@@ -73,7 +74,7 @@ const Index = React.createClass({
                       <option value="MDMaryland">Marylad</option>
                       <option value="MAMassachusetts">Massachusetts</option>
                       <option value="MIMichigan">Michigan</option>
-                      <option value="MNMinnesotta">Minnesotta</option>
+                      <option value="MNMinnesota">Minnesota</option>
                       <option value="MSMississippi">Mississippi</option>
                       <option value="MOMissouri">Missouri</option>
                       <option value="MTMontana">Montana</option>
@@ -109,7 +110,7 @@ const Index = React.createClass({
             </div>
           </form>
           <div>
-            {this.props.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t}/>)}
+            {this.props.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t} />)}
           </div>
       </div>
     );

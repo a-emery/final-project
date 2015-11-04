@@ -34,7 +34,7 @@ const ShowTrail = React.createClass({
   render() {
     return (
       <div>
-        {this.props.trail.toJSON().map((t)=> <TrailView key={t.unique_id} {...t}/>)}
+        {this.props.trail.toJSON().map((t)=> <TrailView key={t.unique_id} {...t} />)}
 
 
       </div>

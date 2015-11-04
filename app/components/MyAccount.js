@@ -33,7 +33,6 @@ const MyAccount = React.createClass({
 
   render() {
     let user = store.getSession().get('currentUser').toJSON();
-    console.log(user);
     let favorites = this.props.favorite.toJSON();
 
     return (
