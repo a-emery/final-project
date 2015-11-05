@@ -12,6 +12,9 @@ const Navbar = React.createClass({
     window.location.reload();
   },
 
+  refresh() {
+    window.location.reload();
+  },
 
   render() {
     var loggedIn = store.getSession().isAuthenticated();
@@ -19,7 +22,7 @@ const Navbar = React.createClass({
       <nav className="top-bar" data-topbar role="navigation">
         <ul className="title-area">
           <li className="name">
-            <h1><Link to="/">Home</Link></h1>
+            <h1><Link to="/" onClick={this.refresh}>Home</Link></h1>
           </li>
           <li className="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>

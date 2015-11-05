@@ -140,6 +140,7 @@ body {
 }
 
 .trailViewFormContainer {
+  @include clearfix;
   transition: all .5s ease;
 }
 

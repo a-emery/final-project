@@ -21,7 +21,8 @@ const IndexTrail = React.createClass({
       todayWeather: store.getTodayWeather(),
       yesterdayWeather: store.getYesterdayWeather(),
       twoDayWeather: store.getTwoDayWeather(),
-      rides: store.getRides()
+      rides: store.getRides(),
+      recentRides: store.getRecentRides()
     };
   },
 
@@ -47,6 +48,9 @@ const IndexTrail = React.createClass({
     this.props.rides.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.rides.setTrail(this.props.unique_id);
     this.props.rides.fetch();
+    this.props.recentRides.on('add remove change', this.forceUpdate.bind(this, null), this);
+    this.props.recentRides.setTimeAndTrail(this.props.unique_id, Date.now()-259200000, Date.now());
+    this.props.recentRides.fetch();
   },
 
   componentWillUnmount() {
@@ -55,6 +59,7 @@ const IndexTrail = React.createClass({
     this.props.yesterdayWeather.off('add remove change', null, this);
     this.props.twoDayWeather.off('add remove change', null, this);
     this.props.rides.off('add remove change', null, this);
+    this.props.recentRides.off('add remove change', null, this);
   },
 
   toggleAddRide() {
@@ -121,12 +126,8 @@ const IndexTrail = React.createClass({
       hasWeather = false;
     }
     var rides = this.props.rides.toJSON() || [];
-    // console.log(hasWeather);
-    // console.log(todayWeather);
-    // console.log(yesterdayWeather);
-    // console.log(twoDayWeather);
-    // console.log(this.props.rides.toJSON());
-    // console.log(this.props);
+    var recentRides = this.props.recentRides || [];
+    console.log(recentRides);
 
     return (
       <div className="trailViewTrailContainer">
@@ -192,7 +193,7 @@ const IndexTrail = React.createClass({
         <div>
         </div>
         <div>
-          {rides.map((r)=><div key={r.objectId}><p>Condition rating: {r.condition}</p><p>Comments: {r.comment}</p></div>)}
+          {rides.map((r)=><div key={r.objectId || r.trailId}><p>Condition rating: {r.condition}</p><p>Comments: {r.comment}</p></div>)}
           <img src={this.props.activities[0].thumbnail} alt="" />
         </div>
       </div>

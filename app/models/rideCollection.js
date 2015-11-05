@@ -13,6 +13,10 @@ var RideCollection = Backbone.Collection.extend({
     this.trailId = trailId;
   },
 
+  comparator(model) {
+    return -model.get('time');
+  },
+
   parse(response) {
     return response.results;
   }

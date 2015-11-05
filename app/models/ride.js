@@ -22,6 +22,7 @@ var Ride = Backbone.Model.extend({
       condition: "",
       comment: "",
       creator: {},
+      time: Date.now(),
     };
   },
 
