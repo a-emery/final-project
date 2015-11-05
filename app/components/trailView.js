@@ -2,6 +2,7 @@ import React from 'react';
 import Backbone from 'backbone';
 import _ from 'underscore';
 import moment from 'moment';
+import $ from 'jquery';
 
 import { Link } from 'react-router';
 import store from '../store';
@@ -22,7 +23,6 @@ const IndexTrail = React.createClass({
       yesterdayWeather: store.getYesterdayWeather(),
       twoDayWeather: store.getTwoDayWeather(),
       rides: store.getRides(),
-      recentRides: store.getRecentRides()
     };
   },
 
@@ -48,9 +48,6 @@ const IndexTrail = React.createClass({
     this.props.rides.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.rides.setTrail(this.props.unique_id);
     this.props.rides.fetch();
-    this.props.recentRides.on('add remove change', this.forceUpdate.bind(this, null), this);
-    this.props.recentRides.setTimeAndTrail(this.props.unique_id, Date.now()-259200000, Date.now());
-    this.props.recentRides.fetch();
   },
 
   componentWillUnmount() {
@@ -59,7 +56,6 @@ const IndexTrail = React.createClass({
     this.props.yesterdayWeather.off('add remove change', null, this);
     this.props.twoDayWeather.off('add remove change', null, this);
     this.props.rides.off('add remove change', null, this);
-    this.props.recentRides.off('add remove change', null, this);
   },
 
   toggleAddRide() {
@@ -108,6 +104,19 @@ const IndexTrail = React.createClass({
     });
   },
 
+  averageConditions() {
+    var conditionArray = [];
+    this.props.rides.toJSON().filter((t) =>t.time > Date.now()-259200000).map((t)=> {
+      conditionArray = conditionArray.concat(Number(t.condition));
+    });
+    // console.log(conditionArray);
+    var total = 0;
+    for(var i = 0; i < conditionArray.length; i++){
+      total += conditionArray[i];
+    }
+    return(Math.round((total/conditionArray.length) * 10) / 10);
+  },
+
   render() {
     var user = store.getSession().get('currentUser');
     var isFavorited;
@@ -126,8 +135,10 @@ const IndexTrail = React.createClass({
       hasWeather = false;
     }
     var rides = this.props.rides.toJSON() || [];
-    var recentRides = this.props.recentRides || [];
-    console.log(recentRides);
+    // console.log(this.props.recentRides.toJSON());
+    // this.averageConditions();
+    var averageConditions = this.averageConditions() || "";
+    console.log(!!averageConditions);
 
     return (
       <div className="trailViewTrailContainer">
@@ -135,7 +146,12 @@ const IndexTrail = React.createClass({
           <div className="trailViewTrailName">
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>
-            <p>Current Rating: 4/5</p>
+            {averageConditions &&
+              <p>Current Rating: {averageConditions}/5</p>
+            }
+            {!averageConditions &&
+              <p>Current Rating: N/A (No recent reports)</p>
+            }
             <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
           </div>
           <div className="trailViewTrailOptions">

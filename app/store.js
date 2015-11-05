@@ -8,7 +8,6 @@ import FavoriteCollection from './models/favoriteCollection';
 import TodayWeatherCollection from './models/todayWeatherCollection';
 import YesterdayWeatherCollection from './models/yesterdayWeatherCollection';
 import TwoDayWeatherCollection from './models/twoDayWeatherCollection';
-import RecentRidesCollection from './models/recentRideCollection';
 
 /*
 WEATHER API
@@ -26,7 +25,6 @@ var rides = new RideCollection();
 var todayWeather = new TodayWeatherCollection();
 var yesterdayWeather = new YesterdayWeatherCollection();
 var twoDayWeather = new TwoDayWeatherCollection();
-var recentRides = new RecentRidesCollection();
 
 
 export default {
@@ -48,10 +46,6 @@ export default {
 
   getRides() {
     return (rides);
-  },
-
-  getRecentRides() {
-    return (recentRides);
   },
 
   favoriteTrail(comment, options) {
