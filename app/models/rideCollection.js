@@ -5,9 +5,13 @@ var RideCollection = Backbone.Collection.extend({
 
   model: Ride,
 
-  url: "https://api.parse.com/1/classes/Ride?include=creator&where=" + JSON.stringify({
-    
-  }),
+  url() {
+    return 'https://api.parse.com/1/classes/Ride?include=creator&where={"trailId":' + this.trailId + '}';
+  },
+
+  setTrail(trailId) {
+    this.trailId = trailId;
+  },
 
   parse(response) {
     return response.results;

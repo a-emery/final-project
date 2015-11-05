@@ -6,7 +6,8 @@ import store from '../store';
 
 const Navbar = React.createClass({
 
-  logout() {
+  logout(e) {
+    e.preventDefault();
     store.getSession().invalidate();
     window.location.reload();
   },

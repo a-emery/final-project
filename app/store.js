@@ -44,6 +44,10 @@ export default {
     rides.create(comment, options);
   },
 
+  getRides() {
+    return (rides);
+  },
+
   favoriteTrail(comment, options) {
     favorites.create(comment, options);
   },
