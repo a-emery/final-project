@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
 import store from '../store';
-import Navbar from '../components/navbar';
+import Navbar from '../components/reactNav';
 
 
 const App = React.createClass({

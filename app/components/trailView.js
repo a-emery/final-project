@@ -98,6 +98,7 @@ const IndexTrail = React.createClass({
       condition: this.refs.condition.value,
       comment: this.refs.comment.value,
       user: this.state.user,
+      firstname: this.state.user.get('firstname')
     });
     this.setState({
       isAdding: false
@@ -109,7 +110,6 @@ const IndexTrail = React.createClass({
     this.props.rides.toJSON().filter((t) =>t.time > Date.now()-259200000).map((t)=> {
       conditionArray = conditionArray.concat(Number(t.condition));
     });
-    // console.log(conditionArray);
     var total = 0;
     for(var i = 0; i < conditionArray.length; i++){
       total += conditionArray[i];
@@ -135,10 +135,7 @@ const IndexTrail = React.createClass({
       hasWeather = false;
     }
     var rides = this.props.rides.toJSON() || [];
-    // console.log(this.props.recentRides.toJSON());
-    // this.averageConditions();
     var averageConditions = this.averageConditions() || "";
-    console.log(!!averageConditions);
 
     return (
       <div className="trailViewTrailContainer">
@@ -209,7 +206,19 @@ const IndexTrail = React.createClass({
         <div>
         </div>
         <div>
-          {rides.map((r)=><div key={r.objectId || r.trailId}><p>Condition rating: {r.condition}</p><p>Comments: {r.comment}</p></div>)}
+          {
+            rides.map((r)=>
+            <div key={r.objectId || r.trailId} className="trailViewRideContainer">
+              <div className="trailViewRideDateContainer">
+                <h5 className="trailViewRideDate">{moment(r.time).calendar()}</h5>
+              </div>
+              <div className="trailViewRideInfoContainer">
+                <p className="trailViewRideCondition">Condition rating: {r.condition}</p>
+                <p className="trailViewRideUser">Rider: {r.firstname}</p>
+                <p >Comments: {r.comment}</p>
+              </div>
+            </div>
+            )}
           <img src={this.props.activities[0].thumbnail} alt="" />
         </div>
       </div>

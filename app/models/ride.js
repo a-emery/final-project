@@ -23,6 +23,7 @@ var Ride = Backbone.Model.extend({
       comment: "",
       creator: {},
       time: Date.now(),
+      firstname: "",
     };
   },
 
