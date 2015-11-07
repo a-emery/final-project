@@ -11,6 +11,7 @@
 
 body {
   font-family: "Poiret One";
+  padding-top: 52px;
 }
 
 
@@ -26,10 +27,17 @@ body {
 
 .headerName {
   float: right;
-  font-size: 4rem;
+  font-size: 5rem;
   padding-right: 5%;
   color: white;
   text-transform: uppercase;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.appHeaderContainer {
+  
 }
 
 ///////////// NEW APP ///////////////
@@ -48,6 +56,15 @@ body {
   padding-right: 5%;
   color: white;
   text-transform: uppercase;
+}
+
+///////////// NAV ///////////////
+
+.navContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 ///////////// INDEX ///////////////
@@ -100,6 +117,8 @@ body {
   padding: 5px;
   border: 1px solid #CCCCCC;
   transition: border .5s ease, background-color .5s;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 
   &:focus {
     border: 1px solid #999999;
@@ -109,14 +128,25 @@ body {
   }
 }
 
+.indexFormInput:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
 .indexFormSelect {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
   background-image: url('../../public/assets/images/select-arrow.png');
   background-position: 100% 50%;
   background-repeat: no-repeat;
 }
 
+.indexSubmitButtonContainer {
+  width: 100%;
+  text-align: right;
+  padding-right: 15%
+}
+
+.indexSubmitButton {
+
+}
 
 ///////////// LOGIN ///////////////
 

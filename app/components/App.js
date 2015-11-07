@@ -30,7 +30,9 @@ const App = React.createClass({
     return (
       <div>
         <header className="appHeader">
-          <p className="headerName">Carin</p>
+          <div className="appHeaderContainer">
+
+          </div>
         </header>
 
         <Navbar />

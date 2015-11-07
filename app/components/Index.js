@@ -109,8 +109,9 @@ const Index = React.createClass({
                 </select>
               </div>
             </div>
-
-                  <input name="trailForm" className="button right" type="submit" value="Search" />
+            <div className="indexSubmitButtonContainer">
+              <input name="trailForm" className="indexSubmitButton" type="submit" value="Search" />
+            </div>
           </form>
           <div>
             {this.props.trails.toJSON().map((t) => <IndexTrail key={t.unique_id} {...t} />)}
