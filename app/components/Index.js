@@ -50,6 +50,24 @@ const Index = React.createClass({
       }});
   },
 
+  geo(e) {
+    e.preventDefault();
+    this.setState({
+      isLoading: true
+    });
+    this.refs.city.value = "";
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.props.trails.setGeoLocation(position.coords.latitude, position.coords.longitude);
+      this.props.trails.fetch({success: () =>{
+        this.setState({
+          isLoading: false,
+          hasResults: true
+        });
+        document.getElementById("results").scrollIntoView();
+        }});
+    });
+  },
+
   render() {
     var hasTrails;
     if(this.props.trails.length>0){
@@ -135,6 +153,7 @@ const Index = React.createClass({
                   </div>
                 </div>
                 <div className="indexSubmitButtonContainer">
+                  <button className="indexSubmitButton" onClick={this.geo}>Trails Around Me</button>
                   {!this.state.isLoading && <input name="trailForm" className="indexSubmitButton" type="submit" value="Search" />}
                   {this.state.isLoading && <input type="submit" className="indexSubmitButton" value="Loading Results..." disabled/>}
                 </div>

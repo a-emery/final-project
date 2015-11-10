@@ -12,6 +12,7 @@ import {GoogleMap, Marker} from "react-google-maps";
  * https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
  */
 export default function SimpleMap (props) {
+
   return (
     <section style={{height: "300px"}}>
       <GoogleMap containerProps={{
@@ -27,7 +28,7 @@ export default function SimpleMap (props) {
           return (
             <Marker
                 {...marker}
-                onRightclick={() => props.onMarkerRightclick(index)} />
+                onRightclick={() => console.log('you right clicked')} />
           );
         })}
       </GoogleMap>

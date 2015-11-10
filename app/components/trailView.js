@@ -22,7 +22,7 @@ const IndexTrail = React.createClass({
     twoDayWeather: React.PropTypes.object,
     rides: React.PropTypes.object,
     lat: React.PropTypes.number,
-    lng: React.PropTypes.number
+    lon: React.PropTypes.number
   },
 
   getDefaultProps() {
