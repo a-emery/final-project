@@ -13,21 +13,21 @@ import {GoogleMap, Marker} from "react-google-maps";
  */
 export default function SimpleMap (props) {
   return (
-    <section style={{height: "100%"}}>
+    <section style={{height: "300px"}}>
       <GoogleMap containerProps={{
           style: {
             height: "100%",
           },
         }}
-        defaultZoom={3}
-        defaultCenter={{lat: 25.363882, lng: 131.044922}}
-        onClick={props.onMapClick}
+          defaultZoom={11}
+          defaultCenter={{lat: props.lat, lng: props.lon}}
+          onClick={props.onMapClick}
       >
         {props.markers.map((marker, index) => {
           return (
             <Marker
-              {...marker}
-              onRightclick={() => props.onMarkerRightclick(index)} />
+                {...marker}
+                onRightclick={() => props.onMarkerRightclick(index)} />
           );
         })}
       </GoogleMap>

@@ -5,7 +5,6 @@ import store from '../store';
 import Navbar from '../components/reactNav';
 import Footer from '../components/footer';
 
-// Words
 
 const App = React.createClass({
 

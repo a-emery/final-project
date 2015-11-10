@@ -6,6 +6,7 @@ import $ from 'jquery';
 
 import { Link } from 'react-router';
 import store from '../store';
+import Map from '../components/map';
 
 const IndexTrail = React.createClass({
 
@@ -19,7 +20,9 @@ const IndexTrail = React.createClass({
     favorite: React.PropTypes.object,
     yesterdayWeather: React.PropTypes.object,
     twoDayWeather: React.PropTypes.object,
-    rides: React.PropTypes.object
+    rides: React.PropTypes.object,
+    lat: React.PropTypes.number,
+    lng: React.PropTypes.number
   },
 
   getDefaultProps() {
@@ -147,7 +150,7 @@ const IndexTrail = React.createClass({
     if (rides === []) {
       console.log('hello');
     }
-
+    var markers = [{position: {"lat":this.props.lat, "lng":this.props.lon}, key: this.props.unique_id}];
 
     return (
       <div className="trailViewTrailContainer">
@@ -219,7 +222,7 @@ const IndexTrail = React.createClass({
                       <p>Condition Rating:</p>
                     </div>
                     <div className="trailViewFormInput">
-                      <input name="addRideForm" type="number"clasName="" defaultValue="5" step="1" min="1" max="5" id="conditionsRating" ref="condition" />
+                      <input name="addRideForm" type="number" defaultValue="5" step="1" min="1" max="5" id="conditionsRating" ref="condition" />
                     </div>
                   </div>
                 </div>
@@ -243,7 +246,8 @@ const IndexTrail = React.createClass({
             </div>
           </div>
         }
-        <div>
+        <div className="trailViewMapContainer">
+          <Map markers={markers} {...this.props} />
         </div>
         <div className="trailViewRideContainerer">
           <h3 className="trailViewRidesHeading">Recent Rides:</h3>

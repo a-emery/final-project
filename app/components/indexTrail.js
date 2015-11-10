@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import Map from '../components/map';
-
 const TrailView = React.createClass({
 
   propTypes: {

@@ -322,6 +322,10 @@ body {
   }
 }
 
+.trailViewMapContainer {
+  margin: 30px 0;
+}
+
 .trailViewAddRideContainer {
   @include clearfix;
   transition: all .5s ease;
