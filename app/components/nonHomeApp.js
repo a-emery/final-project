@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import $ from 'jquery';
 import store from '../store';
 import Navbar from '../components/reactNav';
+import Footer from '../components/footer';
 
 
 const App = React.createClass({
@@ -36,14 +37,11 @@ const App = React.createClass({
     var loggedIn = store.getSession().isAuthenticated();
     return (
       <div>
-        <header className="nonHomeHeader">
-          <p className="nonHomeHeaderName">Carin</p>
-        </header>
-
         <Navbar />
         <div>
           {this.props.children}
         </div>
+        <Footer />
       </div>
     );
   }

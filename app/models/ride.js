@@ -20,10 +20,11 @@ var Ride = Backbone.Model.extend({
       trailId: "",
       trailName: "",
       condition: "",
-      comment: "",
+      comment: "{no comment submitted}",
       creator: {},
       time: Date.now(),
       firstname: "",
+      userId: ""
     };
   },
 

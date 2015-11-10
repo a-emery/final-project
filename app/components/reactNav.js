@@ -12,18 +12,18 @@ const navbarInstance = React.createClass({
   },
 
   refresh() {
-    // window.location.reload();
+    store.resetTrails();
   },
 
   render() {
     var loggedIn = store.getSession().isAuthenticated();
     return (
       <Navbar className="navContainer" inverse toggleNavKey={0}>
-        <NavBrand><Link to="/">CARIN</Link></NavBrand>
+        <NavBrand><Link to="/" onClick={this.refresh}>CARIN</Link></NavBrand>
         <Nav right eventKey={0}> {/* This is the eventKey referenced */}
           <NavItem eventKey={1} href="#/carin/myAccount">My Account</NavItem>
           {loggedIn &&
-            <NavItem eventKey={2} onClick={this.logout} href="#">Sign Out</NavItem>
+            <NavItem eventKey={2} href="#" onClick={this.logout}>Sign Out</NavItem>
           }
           {!loggedIn &&
             <NavItem eventKey={2} href="#/carin/login">Login</NavItem>

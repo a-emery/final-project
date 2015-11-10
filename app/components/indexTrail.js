@@ -7,15 +7,18 @@ const TrailView = React.createClass({
     name: React.PropTypes.string,
     city: React.PropTypes.string,
     state: React.PropTypes.string,
-    unique_id: React.PropTypes.number
+    unique_id: React.PropTypes.number,
+    index: React.PropTypes.number
   },
 
   render() {
     return (
-      <Link to={`/carin/trail/${this.props.unique_id}`}><div className="indexTrailContainer small-10 columns">
-        <h3>{this.props.name}</h3>
-        <p>{this.props.city}, {this.props.state}</p>
-      </div></Link>
+      <div className="indexTrailContainer">
+        <Link to={`/carin/trail/${this.props.unique_id}`}><div>
+          <h3 className="indexTrailHeader">{this.props.index}. {this.props.name}</h3>
+          <p>{this.props.city}, {this.props.state}</p>
+        </div></Link>
+      </div>
     );
   }
 });

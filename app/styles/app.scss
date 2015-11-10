@@ -7,11 +7,24 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap/dist/css/bootstrap-theme.css';
 
+@font-face {
+  font-family: "Bleeding Cowboy";
+  src: url(../../public/assets/fonts/Bleeding_Cowboys.ttf);
+}
+
+@font-face {
+  font-family: "Comic Sans";
+  src: url(../../public/assets/fonts/comic_sans.ttf);
+}
 
 
 body {
-  font-family: "Poiret One";
+  // font-family: "Bleeding Cowboy";
+  // font-family: "Comic Sans";
   padding-top: 52px;
+  // font-family: "Poiret One", helvetica;
+  font-family: "Roboto";
+  // font-family: "Lato";
 }
 
 
@@ -21,8 +34,8 @@ body {
   background-image: url('../../public/assets/images/headerBackground2.jpeg');
   background-position: center;
   background-repeat: no-repeat;
-  font-family: "Poiret One";
-  height: 100vh;
+  height: calc(100vh - 52px);
+  min-height: 500px;
 }
 
 .headerName {
@@ -37,7 +50,8 @@ body {
 }
 
 .appHeaderContainer {
-  
+  padding-top: 100px;
+  margin-bottom: -100px;
 }
 
 ///////////// NEW APP ///////////////
@@ -61,33 +75,42 @@ body {
 ///////////// NAV ///////////////
 
 .navContainer {
+  font-family: "Poiret One";
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1;
 }
 
 ///////////// INDEX ///////////////
 
 .indexContainer {
   text-align: center;
-  margin-top: 100px;
-  min-height: 100vh;
   max-width: 1000px;
-  margin: 100px auto;
+  margin: 0 auto;
+}
+
+.indexFormHeader {
+  margin: 0;
 }
 
 .findATrailForm {
   margin-top: 20px;
 }
 
+.indexFormContainer {
+  background: rgba(255, 255, 255, .5);
+  border-radius: 8px;
+  padding: 50px 0;
+}
+
 .indexTrailContainer {
-  margin: 10px 8.33%;
-  border: 1px solid #999999;
-  border-radius: 5px;
-  background: #FAFAFA;
+  margin: 10px 0;
+  border-top: 1px solid rgba(204, 204, 204, 1);
   padding: 5px;
   text-align: left;
+  position: relative;
 }
 
 .indexCityContainer {
@@ -112,7 +135,7 @@ body {
 }
 
 .indexFormInput {
-  display: inline-block;
+  display: block;
   width: 80%;
   padding: 5px;
   border: 1px solid #CCCCCC;
@@ -126,10 +149,10 @@ body {
     outline: 0;
     background-color: #F8F8F8;
   }
-}
 
-.indexFormInput:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
 }
 
 .indexFormSelect {
@@ -145,14 +168,67 @@ body {
 }
 
 .indexSubmitButton {
+  background: white;
+  border: 1px solid rgba(204, 204, 204, 1);
+}
 
+.indexSearchResults {
+  margin: 0 8.33%;
+  padding-top: 50px;
+  min-height: 100vh;
 }
 
 ///////////// LOGIN ///////////////
 
+.loginFormContainer {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  min-height: calc(100vh - 207px);
+}
+
 .loginForm {
   margin-top: 100px;
   text-align: center;
+  width: 100%;
+}
+
+.loginFormInput {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #CCCCCC;
+  margin-bottom: 10px;
+  transition: border .5s ease, background-color .5s;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+
+  &:focus {
+    border: 1px solid #999999;
+    box-shadow: none;
+    outline: 0;
+    background-color: #F8F8F8;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+}
+
+.loginSubmitButtonContainer {
+  width: 100%;
+  @include clearfix;
+  // text-align: right;
+}
+
+.loginSubmitButton {
+  background: white;
+  border: 1px solid rgba(204, 204, 204, 1);
+  float: right;
+}
+
+.loginNotAUser {
+  float: left;
 }
 
 ///////////// TRAIL VIEW ///////////////
@@ -161,15 +237,32 @@ body {
   max-width: 750px;
   margin: 0 auto;
   text-align: left;
+  min-height: 100vh;
 }
 
 .trailViewTrailInfoContainer {
   @include clearfix;
+  padding: 5px;
 }
 
 .weather {
-  background-color: #E4E4E4;
+  // background-color: #E4E4E4;
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
   padding: 5px;
+  display: inline-block;
+  width: 65%;
+  margin-top: 10px;
+}
+
+.trailViewTrailConditionsHeader {
+  display: inline-block;
+  float: left;
+}
+
+.trailViewCurrentRating {
+  float: right;
+  display: inline-block;
 }
 
 .temperatureContainer {
@@ -184,7 +277,7 @@ body {
 }
 
 .trailViewTrailName {
-  width: 65%;
+  width: 35%;
   padding: 5px;
   float: left;
   display: inline-block;
@@ -212,26 +305,121 @@ body {
 .trailViewTrailOptionsButton {
   display: block;
   margin-bottom: 3px;
-  float: right;
-  clear: both;
   width: 150px;
-  font-size: .75rem;
+  font-size: 1.25rem;
+  margin-top: 10px;
+  background: rgba(248, 248, 248, 1);
+  border: 1px solid rgba(204, 204, 204, 1);
+  transition: background .5s ease, border .5s;
+
+  &:hover {
+    background: rgba(230, 230, 230, 1);
+    border: 1px solid rgba(184, 184, 184, 1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.trailViewAddRideContainer {
+  @include clearfix;
+  transition: all .5s ease;
+  position: fixed;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(250, 250, 250, .7);
+  z-index: 1;
 }
 
 .trailViewFormContainer {
+  width: 100%;
+  max-width: 750px;
+  margin: 75px auto;
+  padding-bottom: 30px;
+  background: rgba(34, 34, 34, .95);
+  color: rgba(157, 157, 157, 1);
+  border-radius: 3px;
+}
+
+.trailViewFormHeading {
+  text-align: center;
+  padding: 30px;
+}
+
+.trailViewFormPiece {
+  width: 100%;
+  display: inline-block;
   @include clearfix;
-  transition: all .5s ease;
+}
+
+.trailViewFormLabel {
+  float: left;
+  width: 40%;
+  padding: 5px;
+  text-align: right;
+  display: inline-block;
+}
+
+.trailViewFormLabel p {
+  margin: 0;
+}
+
+.trailViewFormInput {
+  float: right;
+  width: 60%;
+  padding: 5px;
+  display: inline-block;
+  border: rgba(204, 204, 204, 1);
+  color: rgba(44, 44, 44, 1);
+}
+
+.trailViewFormInputDisabled {
+  background: rgba(220, 220, 220, 1);
+  border: rgba(204, 204, 204, 1);
+}
+
+.trailViewFormInputText {
+  width: 80%;
 }
 
 .trailViewAddTrailTextarea {
   resize: none;
 }
 
+.trailViewFormButtonsContainer {
+  @include clearfix;
+}
+
+.trailViewFormButtons {
+  width: 60%;
+  padding: 5px;
+  float: right;
+}
+
+.trailViewFormButton {
+  margin-right: 10px;
+  color: rgba(44, 44, 44, 1);
+}
+
+.trailViewRideContainerer {
+  margin-top: 50px;
+  background-color: rgba(248, 248, 248, 1);
+  padding: 7px;
+}
+
 .trailViewRideContainer {
   width: 100%;
-  padding: 5px;
-  margin: 10px 0;
-  background-color: #F4F4F4
+  padding: 0 5px;
+  margin: 25px 0;
+  border-bottom: 1px solid rgba(228, 228, 228, 1);
+}
+
+.trailViewRidesHeading {
+  padding: 20px 0 0 0;
+  margin: 0;
 }
 
 .trailViewRideDateContainer {
@@ -241,19 +429,23 @@ body {
 
 .trailViewRideInfoContainer {
   display: inline-block;
+  min-height: 80px;
+  vertical-align: top;
   width: 70%;
+  padding-left: 10px;
+  border-left: 1px solid rgba(228, 228, 228, 1);
 }
 
 .trailViewRideDate {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 0;
 }
 
 .trailViewRideCondition {
-  display: inline-block;
-  width: 50%;
-  float: left;
+  display: block;
+}
+
+.trailViewRideComment {
+  display: block;
 }
 
 .trailViewRideUser {
@@ -261,4 +453,92 @@ body {
   display: inline-block;
   float: right;
   text-align: right;
+}
+
+.trailViewImagesContainer {
+  margin-bottom: 50px;
+}
+
+.trailViewImageContainer {
+  width: 45%;
+  height: 300px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid rgba(228, 228, 228, 1);
+  background: rgba(253, 253, 253, 1);
+}
+
+.trailViewImage {
+  max-width: 100%;
+  max-height: 300px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+///////////// MY ACCOUNT ///////////////
+
+.myAccountContainer {
+  min-height: 100vh;
+  margin: 0 auto;
+  max-width: 750px;
+}
+
+.myAccountFavoriteContainer {
+  padding: 1px;
+}
+
+.myAccountFavoriteTrailName {
+  display: inline-block;
+}
+
+.myAccountFavoriteButton {
+  margin-right: 5px;
+  font-size: 1.25rem;
+  background: rgba(248, 248, 248, 1);
+  border: 1px solid rgba(204, 204, 204, 1);
+  transition: background .5s ease, border .5s;
+  transform: translateY(-10%);
+
+  &:hover {
+    background: rgba(230, 230, 230, 1);
+    border: 1px solid rgba(184, 184, 184, 1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.myAccountRides {
+  margin-bottom: 50px;
+}
+
+///////////// FOOTER ///////////////
+
+.footerContainer {
+  background-color: rgba(60, 60, 60, 1);
+  padding: 10px;
+  color: rgba(69, 121, 179, 1);
+  @include clearfix;
+}
+
+.footerCopyrightLeft {
+  float: left;
+  display: inline-block;
+  transform: translateY(40%);
+}
+
+.footerCopyrightRight {
+  float: right;
+  display: inline-block;
+}
+
+.footerCopyrightRightTrailAPI {
+  display: inline-block;
+}
+
+.footerCopyrightRightWU {
+  height: 35px;
+  padding-left: 10px;
 }

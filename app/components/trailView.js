@@ -13,7 +13,13 @@ const IndexTrail = React.createClass({
     name: React.PropTypes.string,
     city: React.PropTypes.string,
     state: React.PropTypes.string,
-    activities: React.PropTypes.array
+    unique_id: React.PropTypes.number,
+    activities: React.PropTypes.array,
+    todayWeather: React.PropTypes.object,
+    favorite: React.PropTypes.object,
+    yesterdayWeather: React.PropTypes.object,
+    twoDayWeather: React.PropTypes.object,
+    rides: React.PropTypes.object
   },
 
   getDefaultProps() {
@@ -58,7 +64,8 @@ const IndexTrail = React.createClass({
     this.props.rides.off('add remove change', null, this);
   },
 
-  toggleAddRide() {
+  toggleAddRide(e) {
+    e.preventDefault();
     if(!this.state.isAdding) {
       this.setState({
         isAdding: true
@@ -96,9 +103,10 @@ const IndexTrail = React.createClass({
       trailId: this.props.unique_id,
       trailName: this.props.name,
       condition: this.refs.condition.value,
-      comment: this.refs.comment.value,
+      comment: this.refs.comment.value || "{no comment submitted}",
       user: this.state.user,
-      firstname: this.state.user.get('firstname')
+      firstname: this.state.user.get('firstname'),
+      userId: this.state.user.id
     });
     this.setState({
       isAdding: false
@@ -136,6 +144,9 @@ const IndexTrail = React.createClass({
     }
     var rides = this.props.rides.toJSON() || [];
     var averageConditions = this.averageConditions() || "";
+    if (rides === []) {
+      console.log('hello');
+    }
 
     return (
       <div className="trailViewTrailContainer">
@@ -143,83 +154,126 @@ const IndexTrail = React.createClass({
           <div className="trailViewTrailName">
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>
-            {averageConditions &&
-              <p>Current Rating: {averageConditions}/5</p>
-            }
-            {!averageConditions &&
-              <p>Current Rating: N/A (No recent reports)</p>
-            }
             <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
+              {isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
+              {!isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
+              {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
+              {this.state.isAdding &&
+                <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>
+              }
           </div>
-          <div className="trailViewTrailOptions">
-            {isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
-            {!isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
-            {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
-            {this.state.isAdding &&
-              <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>
-            }
-          </div>
+            <div className="weather">
+              <h4 className="trailViewTrailConditionsHeader">Trail Conditions:</h4>
+                {averageConditions &&
+                  <h4 className="trailViewCurrentRating">Current Rating: {averageConditions}/5</h4>
+                }
+                {!averageConditions &&
+                  <h4 className="trailViewCurrentRating">Current Rating: N/A (No recent reports)</h4>
+                }
+                {hasWeather &&
+                  <div>
+                    <div className="temperatureContainer">
+                      <h5>Todays Temperature</h5>
+                      <p>High: {todayWeather.maxtempi}&#8457; </p>
+                      <p>Low: {todayWeather.mintempi}&#8457; </p>
+                      <p>Avg: {todayWeather.meantempi}&#8457;</p>
+                    </div>
+                    <div className="precipContainer">
+                      <h5>Precipication Totals</h5>
+                      <p>Today: {todayWeather.precipi}&#34; </p>
+                      <p>Yesterday: {yesterdayWeather.precipi}&#34; </p>
+                      <p>Two-Days Ago: {twoDayWeather.precipi}&#34;</p>
+                    </div>
+                  </div>
+                }
+            </div>
+                {!hasWeather &&
+                  <div className="weather">
+                    <p>Sorry, no weather is available for this location</p>
+                  </div>
+                }
         </div>
-        {hasWeather &&
-          <div className="weather">
-            <div className="temperatureContainer">
-              <h5>Todays Temperature</h5>
-              <p>High: {todayWeather.maxtempi}&#8457; </p>
-              <p>Low: {todayWeather.mintempi}&#8457; </p>
-              <p>Avg: {todayWeather.meantempi}&#8457;</p>
-            </div>
-            <div className="precipContainer">
-              <h5>Precipication Totals</h5>
-              <p>Today: {todayWeather.precipi}&#34; </p>
-              <p>Yesterday: {yesterdayWeather.precipi}&#34; </p>
-              <p>Two-Days Ago: {twoDayWeather.precipi}&#34;</p>
-            </div>
-          </div>
-        }
-        {!hasWeather &&
-          <div className="weather">
-            <p>Sorry, no weather is available for this location</p>
-          </div>
-        }
         {this.state.isAdding &&
-          <div className="trailViewFormContainer">
-            <h3>Add a Ride:</h3>
+          <div className="trailViewAddRideContainer">
+            <div className="trailViewFormContainer">
+              <h3 className="trailViewFormHeading">Add a Ride:</h3>
               <form name="addRideForm" onSubmit={this.handleAddRide}>
-                <div className="small-10 columns">
-                  <div className="row">
-                    <div className="small-3 columns">
-                      <label htmlFor="trail" className="right inline">trail</label>
-                      <label htmlFor="contitionsRating" className="right inline">conditions</label>
-                      <label htmlFor="comments" className="right inline">comments</label>
+                <div className="trailViewFormPiece">
+                  <div>
+                    <div className="trailViewFormLabel">
+                      <p>Trail Name:</p>
                     </div>
-                    <div className="small-9 columns">
-                      <input name="addRideForm" type="text" value={this.props.name} readOnly id="trail" ref="trail" />
+                    <div className="trailViewFormInput">
+                      <input className="trailViewFormInputText trailViewFormInputDisabled" name="addRideForm" type="text" value={this.props.name} disabled id="trail" ref="trail" />
+                    </div>
+                  </div>
+                </div>
+                <div className="trailViewFormPiece">
+                  <div>
+                    <div className="trailViewFormLabel">
+                      <p>Condition Rating:</p>
+                    </div>
+                    <div className="trailViewFormInput">
                       <input name="addRideForm" type="number"clasName="" defaultValue="5" step="1" min="1" max="5" id="conditionsRating" ref="condition" />
-                      <textarea name="addRideForm" placeholder="comments (optional)" id="comments" className="trailViewAddTrailTextarea" ref="comment" />
                     </div>
-                    <input name="addRideForm" className="button right" type="submit" value="Submit Ride" />
+                  </div>
+                </div>
+                <div className="trailViewFormPiece">
+                  <div>
+                    <div className="trailViewFormLabel">
+                      <p>Comments:</p>
+                    </div>
+                    <div className="trailViewFormInput">
+                      <textarea name="addRideForm" placeholder="comments (optional)" id="comments" className="trailViewAddTrailTextarea trailViewFormInputText" ref="comment" />
+                    </div>
+                  </div>
+                </div>
+                <div className="trailViewFormButtonsContainer">
+                  <div className="trailViewFormButtons">
+                    <button className="trailViewFormButton" onClick={this.toggleAddRide}>Cancel</button>
+                    <input name="addRideForm" className="trailViewFormButton" type="submit" value="Submit Ride" />
                   </div>
                 </div>
               </form>
+            </div>
           </div>
         }
         <div>
         </div>
-        <div>
-          {
-            rides.map((r)=>
-            <div key={r.objectId || r.trailId} className="trailViewRideContainer">
-              <div className="trailViewRideDateContainer">
-                <h5 className="trailViewRideDate">{moment(r.time).calendar()}</h5>
+        <div className="trailViewRideContainerer">
+          <h3 className="trailViewRidesHeading">Recent Rides:</h3>
+            {rides.length > 0 &&
+              rides.map((r)=>
+              <div key={r.objectId || r.trailId} className="trailViewRideContainer">
+                <div className="trailViewRideDateContainer">
+                  <h5 className="trailViewRideDate">{moment(r.time).calendar()}</h5>
+                  <p className="trailViewRideDate">Rider: {r.firstname}</p>
+                </div>
+                <div className="trailViewRideInfoContainer">
+                  <p className="trailViewRideCondition">Condition rating: {r.condition}</p>
+                  <p className="trailViewRideComment">Comments: {r.comment}</p>
+                </div>
               </div>
-              <div className="trailViewRideInfoContainer">
-                <p className="trailViewRideCondition">Condition rating: {r.condition}</p>
-                <p className="trailViewRideUser">Rider: {r.firstname}</p>
-                <p >Comments: {r.comment}</p>
-              </div>
-            </div>
             )}
-          <img src={this.props.activities[0].thumbnail} alt="" />
+            {rides.length < 1 &&
+              <div>
+                <p>Sorry, no rides have been recorded for this trail</p>
+              </div>
+            }
+        </div>
+        <div className="trailViewImagesContainer">
+          <h3>Images:</h3>
+          {this.props.activities[0].thumbnail &&
+            <div className="trailViewImageContainer">
+              <img className="trailViewImage" src={this.props.activities[0].thumbnail} alt="" />
+            </div>
+          }
+          {!this.props.activities[0].thumbnail &&
+            <div>
+              <p>Sorry, there are no images for this trail</p>
+            </div>
+
+          }
         </div>
       </div>
     );

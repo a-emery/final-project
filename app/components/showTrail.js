@@ -24,12 +24,12 @@ const ShowTrail = React.createClass({
     this.props.trail.on('add remove change', this.forceUpdate.bind(this, null), this);
     this.props.trail.setTrail(this.props.params.id);
     this.props.trail.fetch();
+    document.getElementById("body").scrollIntoView();
   },
 
   componentWillUnmount() {
     this.props.trail.off('add remove change', null, this);
   },
-
 
   render() {
     return (

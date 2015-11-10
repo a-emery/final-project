@@ -43,23 +43,19 @@ const Login = React.createClass({
 
   render() {
     return (
-      <form className="loginForm" name="loginForm" onSubmit={this.handleLogin}>
-        <h3>Login</h3>
-        <div className="row">
-          <div className="small-12 medium-4 small-centered columns">
-            <div className="row">
-              <div className="small-12 columns">
-                <input type="text" name="loginForm" id="email-label" placeholder="email" ref="email" />
-                <input type="password" name="loginForm" id="password-label" placeholder="password" ref="password" />
-                {this.state.error &&
-                <p>{this.state.error}</p>}
-              </div>
-                <input type="submit" name="loginForm" className="small-12 button" value="Login"/>
-                <p className="newUserTest left">Not a user? <Link to="/carin/register">Register now</Link></p>
-            </div>
+      <div className="loginFormContainer">
+        <form className="loginForm" name="loginForm" onSubmit={this.handleLogin}>
+          <h3>Login</h3>
+          <input className="loginFormInput" type="text" name="loginForm" id="email-label" placeholder="email" ref="email" />
+          <input className="loginFormInput" type="password" name="loginForm" id="password-label" placeholder="password" ref="password" />
+          {this.state.error &&
+          <p>{this.state.error}</p>}
+          <div className="loginSubmitButtonContainer">
+            <input type="submit" name="loginForm" className="loginSubmitButton" value="Login"/>
+            <p className="loginNotAUser">Not a user? <Link to="/carin/register">Register now</Link></p>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 });
