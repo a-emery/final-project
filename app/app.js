@@ -1,4 +1,4 @@
-import './initializers/parse';
+import './initializers/ajaxSetup';
 import './initializers/session';
 
 

@@ -2,6 +2,8 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import User from './user';
 
+// from https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/models/session.js;
+
 const Session = Backbone.Model.extend({
   authenticate(options) {
       if (options.username && options.password) {

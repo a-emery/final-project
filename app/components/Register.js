@@ -5,6 +5,7 @@ import User from '../models/user';
 import store from '../store';
 
 
+// Adapted from https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/components/signup.js
 
 const Register = React.createClass({
 

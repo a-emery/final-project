@@ -12,15 +12,11 @@ import NonHomeApp from './components/nonHomeApp';
 
 import store from './store';
 
-function requireAuth(nextState, replaceState) {
-  if( ! store.getSession().isAuthenticated ) {
-    replaceState({ nextPathname: nextState.location.pathname }, '/carin/login');
-  }
-}
+// requireAuth adapted from https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/router.js
 
-function requireNotAuth(nextState, replaceState) {
-  if(store.getSession().isAuthenticated) {
-    replaceState({}, '/');
+function requireAuth(nextState, replaceState) {
+  if( ! store.getSession().isAuthenticated() ) {
+    replaceState({ nextPathname: nextState.location.pathname }, '/carin/login');
   }
 }
 

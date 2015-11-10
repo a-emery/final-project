@@ -13,7 +13,6 @@ var TodayWeatherCollection = Backbone.Collection.extend({
   },
 
   parse(response) {
-    // console.log(response.history.dailysummary[0]);
     if (response && response.history && response.history.dailysummary[0]) {
       return response.history.dailysummary[0];
     } else {

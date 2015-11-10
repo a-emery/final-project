@@ -10,9 +10,7 @@ var FavoriteCollection = Backbone.Collection.extend({
   },
 
   setUser(options) {
-    console.log(options.objectId);
     this.objectId = options.objectId;
-    console.log(this.objectId);
   },
 
   comparator(model) {

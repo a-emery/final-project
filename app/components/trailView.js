@@ -148,6 +148,7 @@ const IndexTrail = React.createClass({
       console.log('hello');
     }
 
+
     return (
       <div className="trailViewTrailContainer">
         <div className="trailViewTrailInfoContainer">
@@ -155,12 +156,16 @@ const IndexTrail = React.createClass({
             <h3>{this.props.name}</h3>
             <p>{this.props.city}, {this.props.state}</p>
             <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
+            {user &&
+            <div>
               {isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
               {!isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
               {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
               {this.state.isAdding &&
                 <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Cancel</button>
               }
+            </div>
+            }
           </div>
             <div className="weather">
               <h4 className="trailViewTrailConditionsHeader">Trail Conditions:</h4>

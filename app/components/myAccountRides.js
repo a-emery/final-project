@@ -11,7 +11,6 @@ var AccountRides = React.createClass({
   },
 
   render(){
-    console.log(this.props);
     return (
       <div className="trailViewRideContainer">
         <div className="trailViewRideDateContainer">

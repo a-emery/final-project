@@ -1,6 +1,9 @@
 /*
  * Gulp plugins
  */
+
+// From https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/gulpfile.js
+
 var gulp              = require('gulp');
 var gutil             = require('gulp-util');
 var path              = require('path');

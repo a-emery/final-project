@@ -2,6 +2,8 @@ import Backbone from 'backbone';
 import _ from 'underscore';
 import store from '../store';
 
+// adapted from https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/models/recipe.js
+
 var Favorite = Backbone.Model.extend({
 
   idAttribute: 'objectId',
@@ -9,10 +11,7 @@ var Favorite = Backbone.Model.extend({
   urlRoot: "https://api.parse.com/1/classes/Favorite",
 
   url: function() {
-    var base = _.result(this, 'urlRoot');
-    if (this.isNew()) return base;
-    var id = this.get(this.idAttribute);
-    return base.replace(/[^\/]$/, '$&/') + encodeURIComponent(id) + "?include=creator";
+    return Backbone.Model.prototype.url.apply(this, arguments) + "?include=creator";
   },
 
   defaults() {
@@ -33,7 +32,7 @@ var Favorite = Backbone.Model.extend({
           "objectId": this.get('creator').objectId
         }
       });
-    } else { 
+    } else {
       return _.clone(this.attributes);
     }
   },

@@ -34,8 +34,6 @@ const MyAccount = React.createClass({
     this.props.favorite.fetch();
     document.getElementById("body").scrollIntoView();
     this.props.rides.on('add remove change', this.forceUpdate.bind(this, null), this);
-    // this.props.rides.setUser(this.state.user);
-    // this.props.rides.fetch();
   },
 
   componentWillUnmount() {

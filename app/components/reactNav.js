@@ -20,7 +20,7 @@ const navbarInstance = React.createClass({
     return (
       <Navbar className="navContainer" inverse toggleNavKey={0}>
         <NavBrand><Link to="/" onClick={this.refresh}>CARIN</Link></NavBrand>
-        <Nav right eventKey={0}> {/* This is the eventKey referenced */}
+        <Nav right eventKey={0}>
           <NavItem eventKey={1} href="#/carin/myAccount">My Account</NavItem>
           {loggedIn &&
             <NavItem eventKey={2} href="#" onClick={this.logout}>Sign Out</NavItem>

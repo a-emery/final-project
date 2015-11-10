@@ -4,6 +4,7 @@ import { Link, History } from 'react-router';
 import store from '../store';
 
 
+// Adapted from https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/components/login.js
 
 const Login = React.createClass({
 

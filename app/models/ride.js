@@ -9,10 +9,7 @@ var Ride = Backbone.Model.extend({
   urlRoot: "https://api.parse.com/1/classes/Ride",
 
   url: function() {
-    var base = _.result(this, 'urlRoot');
-    if (this.isNew()) return base;
-    var id = this.get(this.idAttribute);
-    return base.replace(/[^\/]$/, '$&/') + encodeURIComponent(id) + "?include=creator";
+    return Backbone.Model.prototype.url.apply(this, arguments) + "?include=creator";
   },
 
   defaults() {

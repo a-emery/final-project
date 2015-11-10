@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import Map from '../components/map';
+
 const TrailView = React.createClass({
 
   propTypes: {
@@ -11,7 +13,11 @@ const TrailView = React.createClass({
     index: React.PropTypes.number
   },
 
+  // https://github.com/TIY-GVL-FEE-2015-August/9.5-relational-data/blob/master/app/components/signup.js
+
   render() {
+    var markers = [{position: {"lat":this.props.lat, "lng":this.props.lon}}];
+    console.log(markers);
     return (
       <div className="indexTrailContainer">
         <Link to={`/carin/trail/${this.props.unique_id}`}><div>
