@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 var AccountRides = React.createClass({
 
@@ -8,7 +9,8 @@ var AccountRides = React.createClass({
     trailName: React.PropTypes.string,
     condition: React.PropTypes.string,
     comment: React.PropTypes.string,
-    img: React.PropTypes.string
+    img: React.PropTypes.string,
+    trailId: React.PropTypes.number
   },
 
   render(){
@@ -16,7 +18,7 @@ var AccountRides = React.createClass({
       <div className="trailViewRideContainer">
         <div className="trailViewRideDateContainer">
           <h5 className="trailViewRideDate">{moment(this.props.time).calendar()}</h5>
-          <p className="trailViewRideDate">{this.props.trailName}</p>
+          <Link to={`/carin/trail/${this.props.trailId}`}><p className="trailViewRideDate">{this.props.trailName}</p></Link>
         </div>
         <div className="trailViewRideInfoContainer">
           <p className="trailViewRideCondition">Condition rating: {this.props.condition}</p>

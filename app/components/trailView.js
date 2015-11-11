@@ -132,6 +132,7 @@ const IndexTrail = React.createClass({
   },
 
   handleAddPhoto() {
+    filepicker.setKey('AKsoAVzaRnAKruLYvFjMQz');
     filepicker.pick(
      {
         mimetype: 'image/*',
@@ -140,7 +141,9 @@ const IndexTrail = React.createClass({
       },
       (Blob) => {
         this.imgUrl = (Blob.url);
+        this.imgAdded = true;
       },
+
       function(FPError){
     //  console.log(FPError.toString()); - print errors to console
       }
@@ -176,7 +179,6 @@ const IndexTrail = React.createClass({
     } else {
       hasMap = true;
     }
-    filepicker.setKey('AKsoAVzaRnAKruLYvFjMQz');
 
     return (
       <div className="trailViewTrailContainer">
@@ -268,7 +270,8 @@ const IndexTrail = React.createClass({
                       <p>Image:</p>
                     </div>
                     <div className="trailViewFormInput">
-                      <input name="addRideForm" id="image" ref="image" value="Add Image" disabled onClick={this.handleAddPhoto}/>
+                      {!this.imgAdded && <input name="addRideForm" id="image" ref="image" value="Add Image" disabled onClick={this.handleAddPhoto}/>}
+                      {this.imgAdded && <input name="addRideForm" id="image" ref="image" value="Image Added" disabled onClick={this.handleAddPhoto}/>}
                     </div>
                   </div>
                 </div>
@@ -323,7 +326,7 @@ const IndexTrail = React.createClass({
           {rides.map((r)=> {
             if(r.img) {
             return (
-              <div className="trailViewImageContainer">
+              <div className="trailViewImageContainer" key={r.objectId}>
                 <img className="trailViewImage" src={r.img} alt="" key={r.objectId} />
               </div>
             );}
