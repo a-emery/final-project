@@ -151,6 +151,12 @@ const IndexTrail = React.createClass({
       console.log('hello');
     }
     var markers = [{position: {"lat":this.props.lat, "lng":this.props.lon}, key: this.props.unique_id}];
+    var hasMap;
+    if(this.props.lat === 0) {
+      hasMap = false;
+    } else {
+      hasMap = true;
+    }
 
     return (
       <div className="trailViewTrailContainer">
@@ -246,8 +252,14 @@ const IndexTrail = React.createClass({
             </div>
           </div>
         }
+
         <div className="trailViewMapContainer">
-          <Map markers={markers} {...this.props} />
+          {hasMap &&
+            <Map markers={markers} {...this.props} />
+          }
+          {!hasMap &&
+            <p>Sorry, a map is not available for this trail</p>
+          }
         </div>
         <div className="trailViewRideContainerer">
           <h3 className="trailViewRidesHeading">Recent Rides:</h3>

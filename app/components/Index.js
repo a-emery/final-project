@@ -56,6 +56,7 @@ const Index = React.createClass({
       isLoading: true
     });
     this.refs.city.value = "";
+    this.refs.state.value = "";
     navigator.geolocation.getCurrentPosition((position) => {
       this.props.trails.setGeoLocation(position.coords.latitude, position.coords.longitude);
       this.props.trails.fetch({success: () =>{
@@ -153,9 +154,10 @@ const Index = React.createClass({
                   </div>
                 </div>
                 <div className="indexSubmitButtonContainer">
-                  <button className="indexSubmitButton" onClick={this.geo}>Trails Around Me</button>
                   {!this.state.isLoading && <input name="trailForm" className="indexSubmitButton" type="submit" value="Search" />}
                   {this.state.isLoading && <input type="submit" className="indexSubmitButton" value="Loading Results..." disabled/>}
+                  {!this.state.isLoading && <input type="submit" onClick={this.geo} className="indexSubmitButton" value="Trails Around Me" />}
+                  {this.state.isLoading && <input type="submit" onClick={this.geo} className="indexSubmitButton" value="Trails Around Me" disabled/>}
                 </div>
               </form>
             </div>

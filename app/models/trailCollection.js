@@ -20,7 +20,6 @@ var TrailCollection = Backbone.Collection.extend({
     this.lat = '&lat=' + lat;
     this.lon = '&lon=' + lon;
     this.radius = '&radius=25';
-    console.log(this.lat, this.lon, this.radius);
   },
 
   parse(response) {
