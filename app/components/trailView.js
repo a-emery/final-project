@@ -141,11 +141,11 @@ const IndexTrail = React.createClass({
       },
       (Blob) => {
         this.imgUrl = (Blob.url);
-        this.imgAdded = true;
+        this.refs.image.value = "Change Picture";
       },
 
       function(FPError){
-    //  console.log(FPError.toString()); - print errors to console
+        console.log(FPError.toString());
       }
     );
   },
@@ -270,8 +270,7 @@ const IndexTrail = React.createClass({
                       <p>Image:</p>
                     </div>
                     <div className="trailViewFormInput">
-                      {!this.imgAdded && <input name="addRideForm" id="image" ref="image" value="Add Image" disabled onClick={this.handleAddPhoto}/>}
-                      {this.imgAdded && <input name="addRideForm" id="image" ref="image" value="Image Added" disabled onClick={this.handleAddPhoto}/>}
+                      <input name="addRideForm" id="image" ref="image" value="Add Image" disabled onClick={this.handleAddPhoto}/>}
                     </div>
                   </div>
                 </div>
