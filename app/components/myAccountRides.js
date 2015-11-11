@@ -7,7 +7,8 @@ var AccountRides = React.createClass({
     time: React.PropTypes.number,
     trailName: React.PropTypes.string,
     condition: React.PropTypes.string,
-    comment: React.PropTypes.string
+    comment: React.PropTypes.string,
+    img: React.PropTypes.string
   },
 
   render(){
@@ -20,6 +21,7 @@ var AccountRides = React.createClass({
         <div className="trailViewRideInfoContainer">
           <p className="trailViewRideCondition">Condition rating: {this.props.condition}</p>
           <p className="trailViewRideComment">Comments: {this.props.comment}</p>
+          <img className="trailViewRideImage" src={this.props.img} alt="" />
         </div>
       </div>
     );

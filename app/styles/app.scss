@@ -457,6 +457,12 @@ body {
   display: block;
 }
 
+.trailViewRideImage {
+  max-width: 50%;
+  max-height: 200px;
+  margin-bottom: 10px;
+}
+
 .trailViewRideUser {
   width: 50%;
   display: inline-block;
@@ -470,6 +476,9 @@ body {
 
 .trailViewImageContainer {
   width: 45%;
+  margin: 0 2.5% 15px 2.5%;
+  vertical-align: top;
+  padding: 2px;
   height: 300px;
   display: inline-block;
   text-align: center;

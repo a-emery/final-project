@@ -7,6 +7,7 @@ import $ from 'jquery';
 import { Link } from 'react-router';
 import store from '../store';
 import Map from '../components/map';
+import filepicker from 'filepicker-js';
 
 const IndexTrail = React.createClass({
 
@@ -78,6 +79,7 @@ const IndexTrail = React.createClass({
         isAdding: false
       });
     }
+    console.log(this.imgUrl);
   },
 
   handleFavorite(e) {
@@ -109,7 +111,8 @@ const IndexTrail = React.createClass({
       comment: this.refs.comment.value || "{no comment submitted}",
       user: this.state.user,
       firstname: this.state.user.get('firstname'),
-      userId: this.state.user.id
+      userId: this.state.user.id,
+      img: this.imgUrl
     });
     this.setState({
       isAdding: false
@@ -126,6 +129,22 @@ const IndexTrail = React.createClass({
       total += conditionArray[i];
     }
     return(Math.round((total/conditionArray.length) * 10) / 10);
+  },
+
+  handleAddPhoto() {
+    filepicker.pick(
+     {
+        mimetype: 'image/*',
+        container: 'window',
+        services: ['COMPUTER', 'FACEBOOK', 'CLOUDAPP']
+      },
+      (Blob) => {
+        this.imgUrl = (Blob.url);
+      },
+      function(FPError){
+    //  console.log(FPError.toString()); - print errors to console
+      }
+    );
   },
 
   render() {
@@ -157,6 +176,7 @@ const IndexTrail = React.createClass({
     } else {
       hasMap = true;
     }
+    filepicker.setKey('AKsoAVzaRnAKruLYvFjMQz');
 
     return (
       <div className="trailViewTrailContainer">
@@ -203,7 +223,7 @@ const IndexTrail = React.createClass({
             </div>
                 {!hasWeather &&
                   <div className="weather">
-                    <p>Sorry, no weather is available for this location</p>
+                    <p>No weather is available for this location</p>
                   </div>
                 }
         </div>
@@ -242,6 +262,16 @@ const IndexTrail = React.createClass({
                     </div>
                   </div>
                 </div>
+                <div className="trailViewFormPiece">
+                  <div>
+                    <div className="trailViewFormLabel">
+                      <p>Image:</p>
+                    </div>
+                    <div className="trailViewFormInput">
+                      <input name="addRideForm" id="image" ref="image" value="Add Image" disabled onClick={this.handleAddPhoto}/>
+                    </div>
+                  </div>
+                </div>
                 <div className="trailViewFormButtonsContainer">
                   <div className="trailViewFormButtons">
                     <button className="trailViewFormButton" onClick={this.toggleAddRide}>Cancel</button>
@@ -258,7 +288,7 @@ const IndexTrail = React.createClass({
             <Map markers={markers} {...this.props} />
           }
           {!hasMap &&
-            <p>Sorry, a map is not available for this trail</p>
+            <p>Map is not available for this trail</p>
           }
         </div>
         <div className="trailViewRideContainerer">
@@ -273,12 +303,13 @@ const IndexTrail = React.createClass({
                 <div className="trailViewRideInfoContainer">
                   <p className="trailViewRideCondition">Condition rating: {r.condition}</p>
                   <p className="trailViewRideComment">Comments: {r.comment}</p>
+                  <img className="trailViewRideImage" src={r.img} alt="" />
                 </div>
               </div>
             )}
             {rides.length < 1 &&
               <div>
-                <p>Sorry, no rides have been recorded for this trail</p>
+                <p>No rides have been recorded for this trail</p>
               </div>
             }
         </div>
@@ -289,9 +320,17 @@ const IndexTrail = React.createClass({
               <img className="trailViewImage" src={this.props.activities[0].thumbnail} alt="" />
             </div>
           }
+          {rides.map((r)=> {
+            if(r.img) {
+            return (
+              <div className="trailViewImageContainer">
+                <img className="trailViewImage" src={r.img} alt="" key={r.objectId} />
+              </div>
+            );}
+          })}
           {!this.props.activities[0].thumbnail &&
             <div>
-              <p>Sorry, there are no images for this trail</p>
+              <p>There are currently no images for this trail</p>
             </div>
 
           }

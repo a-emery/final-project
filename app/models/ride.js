@@ -21,7 +21,8 @@ var Ride = Backbone.Model.extend({
       creator: {},
       time: Date.now(),
       firstname: "",
-      userId: ""
+      userId: "",
+      img: ""
     };
   },
 
