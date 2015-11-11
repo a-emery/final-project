@@ -47,23 +47,17 @@ const Register = React.createClass({
 
   render() {
     return (
-      <form className="loginForm" name="registerForm" onSubmit={this.handleLogin}>
-        <h1>Register a new account</h1>
-        <div className="row">
-          <div className="small-12 medium-4 small-centered columns">
-            <div className="row">
-              <div className="small-12 columns">
-                <input type="text" name="registerForm" id="name-label" placeholder="first name" ref="firstname" />
-                <input type="text" name="registerForm" id="email-label" placeholder="email" ref="email" />
-                <input type="text" name="registerForm" id="password-label" placeholder="password" ref="password" />
-                {this.state.error &&
-                <p>{this.state.error}</p>}
-              </div>
-                <input type="submit" name="registerForm" className="small-12 button" value="Register"/>
-            </div>
-          </div>
-        </div>
-      </form>
+      <div className="loginFormContainer">
+        <form className="loginForm" name="registerForm" onSubmit={this.handleLogin}>
+          <h1>Register:</h1>
+                  <input className="loginFormInput" type="text" name="registerForm" id="name-label" placeholder="first name" ref="firstname" />
+                  <input className="loginFormInput" type="text" name="registerForm" id="email-label" placeholder="email" ref="email" />
+                  <input className="loginFormInput" type="text" name="registerForm" id="password-label" placeholder="password" ref="password" />
+                  {this.state.error &&
+                  <p>{this.state.error}</p>}
+                  <input type="submit" name="registerForm" className="loginSubmitButton" value="Register"/>
+        </form>
+      </div>
     );
   }
 });

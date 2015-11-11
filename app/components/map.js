@@ -20,7 +20,7 @@ export default function SimpleMap (props) {
             height: "100%",
           },
         }}
-          defaultZoom={11}
+          defaultZoom={12}
           defaultCenter={{lat: props.lat, lng: props.lon}}
           onClick={props.onMapClick}
       >

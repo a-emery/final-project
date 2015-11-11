@@ -46,7 +46,7 @@ const Login = React.createClass({
     return (
       <div className="loginFormContainer">
         <form className="loginForm" name="loginForm" onSubmit={this.handleLogin}>
-          <h3>Login</h3>
+          <h1>Login</h1>
           <input className="loginFormInput" type="text" name="loginForm" id="email-label" placeholder="email" ref="email" />
           <input className="loginFormInput" type="password" name="loginForm" id="password-label" placeholder="password" ref="password" />
           {this.state.error &&

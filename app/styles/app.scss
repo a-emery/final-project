@@ -188,8 +188,9 @@ body {
 .loginFormContainer {
   width: 100%;
   max-width: 350px;
-  margin: 0 auto;
-  min-height: calc(100vh - 207px);
+  margin: 0 auto 50px auto;
+  min-height: calc(100vh - 257px);
+  @include clearfix;
 }
 
 .loginForm {
