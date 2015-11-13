@@ -43,12 +43,9 @@ const MyAccount = React.createClass({
   },
 
   handleUnfavorite(id) {
-    let favorite = (_.where(this.props.favorite.toJSON(), id));
+    let favorite = (_.where(this.props.favorite.toJSON(), {trailId: id}));
     favorite = (this.props.favorite.get(favorite[0].objectId));
     favorite.destroy();
-    this.setState({
-      isFavorited: false
-    });
   },
 
   render() {
