@@ -7,33 +7,19 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap/dist/css/bootstrap-theme.css';
 
-@font-face {
-  font-family: "Bleeding Cowboy";
-  src: url(../../public/assets/fonts/Bleeding_Cowboys.ttf);
-}
-
-@font-face {
-  font-family: "Comic Sans";
-  src: url(../../public/assets/fonts/comic_sans.ttf);
-}
-
-
 body {
-  // font-family: "Bleeding Cowboy";
-  // font-family: "Comic Sans";
   padding-top: 52px;
-  // font-family: "Poiret One", helvetica;
   font-family: "Roboto";
-  // font-family: "Lato";
 }
 
 
 ///////////// APP ///////////////
 
 .appHeader {
-  background-image: url('../../public/assets/images/headerBackground2.jpeg');
+  background-image: url('https://images.unsplash.com/photo-1430263757305-b4f2b068d132?ixlib=rb-0.3.5&q=80&fm=jpg&w=1080&fit=max&s=f8f7534d5fc9dd10c710e03d82217ba8');
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
   height: calc(100vh - 52px);
   min-height: 500px;
 }
