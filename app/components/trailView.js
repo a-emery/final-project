@@ -96,6 +96,7 @@ const IndexTrail = React.createClass({
   handleUnfavorite(e) {
     let favorite = (_.where(this.props.favorite.toJSON(), {trailId: this.props.unique_id}));
     favorite = (this.props.favorite.get(favorite[0].objectId));
+    favorite.destroy();
     this.setState({
       isFavorited: false
     });
