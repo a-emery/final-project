@@ -1,11 +1,13 @@
 @import 'bourbon';
-// @import 'neat';
+@import 'neat';
 @import '~normalize.css/normalize.css';
 @import '~font-awesome/scss/font-awesome.scss';
 // @import 'foundation';
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap/dist/css/bootstrap-theme.css';
+
+$mobile: new-breakpoint(max-width 768px 4);
 
 body {
   padding-top: 52px;
@@ -245,6 +247,10 @@ body {
   display: inline-block;
   width: 65%;
   margin-top: 10px;
+
+  @include media($mobile) {
+    width: 100%;
+  }
 }
 
 .trailViewTrailConditionsHeader {
@@ -273,22 +279,35 @@ body {
   padding: 5px;
   float: left;
   display: inline-block;
+
+  @include media($mobile) {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+}
+
+.trailViewTrailDetails {
+  @include media($mobile) {
+    width: 60%;
+    float: left;
+  }
 }
 
 .trailViewTrailName p {
   margin-bottom: 3px;
 }
 
-.trailViewTrailOptions {
-  padding: 5px;
-  width: 35%;
-  float: right;
-  display: inline-block;
-  text-align: right;
-  @include clearfix;
-  position: relative;
-
-}
+// .trailViewTrailOptions {
+//   padding: 5px;
+//   width: 35%;
+//   float: right;
+//   display: inline-block;
+//   text-align: right;
+//   @include clearfix;
+//   position: relative;
+//
+// }
 
 .trailViewConditionsRating p {
   margin-bottom: 0;
@@ -311,6 +330,19 @@ body {
 
   &:focus {
     outline: none;
+  }
+
+  @include media($mobile) {
+    float: right;
+  }
+
+}
+
+.trailViewOptions {
+  @include media($mobile) {
+    width: 40%;
+    float: right;
+    margin-top: 10px;
   }
 }
 
@@ -531,24 +563,45 @@ body {
   padding: 10px;
   color: rgba(69, 121, 179, 1);
   @include clearfix;
+
 }
 
 .footerCopyrightLeft {
   float: left;
   display: inline-block;
   transform: translateY(40%);
+
+  @include media($mobile) {
+    float: none;
+    display: block;
+  }
 }
 
 .footerCopyrightRight {
   float: right;
   display: inline-block;
+
+  @include media($mobile) {
+    float: none;
+    display: block;
+    margin-top: 5px;
+  }
 }
 
 .footerCopyrightRightTrailAPI {
   display: inline-block;
+
+  @include media($mobile) {
+    float: left;
+  }
 }
 
 .footerCopyrightRightWU {
   height: 35px;
   padding-left: 10px;
+
+  @include media($mobile) {
+    float: right;
+    margin-top: -20px;
+  }
 }

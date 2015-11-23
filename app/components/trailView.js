@@ -184,11 +184,13 @@ const IndexTrail = React.createClass({
       <div className="trailViewTrailContainer">
         <div className="trailViewTrailInfoContainer">
           <div className="trailViewTrailName">
-            <h3>{this.props.name}</h3>
-            <p>{this.props.city}, {this.props.state}</p>
-            <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
+            <div className="trailViewTrailDetails">
+              <h3>{this.props.name}</h3>
+              <p>{this.props.city}, {this.props.state}</p>
+              <p><a href={this.props.activities[0].url} target="_blank">More trail info</a></p>
+            </div>
             {user &&
-            <div>
+            <div className="trailViewOptions">
               {isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleUnfavorite}>Unfavorite</button>}
               {!isFavorited && <button className="trailViewTrailOptionsButton" onClick={this.handleFavorite}>Favorite</button>}
               {!this.state.isAdding && <button className="trailViewTrailOptionsButton" onClick={this.toggleAddRide}>Add a ride</button>}
