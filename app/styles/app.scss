@@ -256,11 +256,20 @@ body {
 .trailViewTrailConditionsHeader {
   display: inline-block;
   float: left;
+
+  @include media($mobile) {
+    display: block;
+    float: none;
+  }
 }
 
 .trailViewCurrentRating {
   float: right;
   display: inline-block;
+
+  @include media($mobile) {
+    float: none;
+  }
 }
 
 .temperatureContainer {
