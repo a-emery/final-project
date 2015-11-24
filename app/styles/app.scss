@@ -316,7 +316,8 @@ body {
 .trailViewTrailOptionsButton {
   display: block;
   margin-bottom: 3px;
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   font-size: 1.25rem;
   margin-top: 10px;
   background: rgba(248, 248, 248, 1);
@@ -553,7 +554,7 @@ body {
 ///////////// MAP ///////////////
 
 .mapContainer {
-  max-height: 75vh;
+  max-height: 60vh;
 }
 
 ///////////// FOOTER ///////////////
